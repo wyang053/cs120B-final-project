@@ -3,31 +3,31 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000c  00800100  0000033e  000003d2  2**0
+  0 .data         0000000c  00800100  000003ec  00000480  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000033e  00000000  00000000  00000094  2**1
+  1 .text         000003ec  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000000a  0080010c  0080010c  000003de  2**0
+  2 .bss          0000000a  0080010c  0080010c  0000048c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000003de  2**0
+  3 .comment      00000030  00000000  00000000  0000048c  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000410  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000004bc  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000070  00000000  00000000  00000450  2**0
+  5 .debug_aranges 00000078  00000000  00000000  000004fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000bde  00000000  00000000  000004c0  2**0
+  6 .debug_info   00000b7f  00000000  00000000  00000574  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000092b  00000000  00000000  0000109e  2**0
+  7 .debug_abbrev 000008ea  00000000  00000000  000010f3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000057b  00000000  00000000  000019c9  2**0
+  8 .debug_line   000005bc  00000000  00000000  000019dd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000e4  00000000  00000000  00001f44  2**2
+  9 .debug_frame  000000f4  00000000  00000000  00001f9c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000005d3  00000000  00000000  00002028  2**0
+ 10 .debug_str    0000066f  00000000  00000000  00002090  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000196  00000000  00000000  000025fb  2**0
+ 11 .debug_loc    000000be  00000000  00000000  000026ff  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000080  00000000  00000000  00002791  2**0
+ 12 .debug_ranges 00000088  00000000  00000000  000027bd  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -116,7 +116,7 @@ Disassembly of section .text:
   98:	11 e0       	ldi	r17, 0x01	; 1
   9a:	a0 e0       	ldi	r26, 0x00	; 0
   9c:	b1 e0       	ldi	r27, 0x01	; 1
-  9e:	ee e3       	ldi	r30, 0x3E	; 62
+  9e:	ec ee       	ldi	r30, 0xEC	; 236
   a0:	f3 e0       	ldi	r31, 0x03	; 3
   a2:	00 e0       	ldi	r16, 0x00	; 0
   a4:	0b bf       	out	0x3b, r16	; 59
@@ -140,19 +140,19 @@ Disassembly of section .text:
   bc:	a6 31       	cpi	r26, 0x16	; 22
   be:	b2 07       	cpc	r27, r18
   c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
-  c2:	04 d1       	rcall	.+520    	; 0x2cc <main>
-  c4:	3a c1       	rjmp	.+628    	; 0x33a <_exit>
+  c2:	5a d1       	rcall	.+692    	; 0x378 <main>
+  c4:	91 c1       	rjmp	.+802    	; 0x3e8 <_exit>
 
 000000c6 <__bad_interrupt>:
   c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
 
 000000c8 <TimerOn>:
-	_delay_ms(1000);
-	pattern[3]=0b00000000;
-	pattern[2]=0b00001000;
-	_delay_ms(1000);
-	pattern[2]=0b00000000;
-	pattern[1]=0b00010000;
+			0b00000000,
+			0b00000000,
+			0b00111000,
+			};
+			
+void ballLogicSM(){
   c8:	8b e0       	ldi	r24, 0x0B	; 11
   ca:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7e0081>
   ce:	8d e7       	ldi	r24, 0x7D	; 125
@@ -233,15 +233,17 @@ Disassembly of section .text:
  1a8:	08 95       	ret
 
 000001aa <ioSetup>:
+
+	
 }
 
 void ioSetup() {
-	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2);
+	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2); //PORTB as output
  1aa:	84 b1       	in	r24, 0x04	; 4
  1ac:	87 60       	ori	r24, 0x07	; 7
  1ae:	84 b9       	out	0x04, r24	; 4
 	
-	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3); 
+	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3); //PORTA as input
  1b0:	81 b1       	in	r24, 0x01	; 1
  1b2:	8f 60       	ori	r24, 0x0F	; 15
  1b4:	81 b9       	out	0x01, r24	; 1
@@ -361,257 +363,401 @@ switch (paddle1SM_state){ //actions
  240:	49 f0       	breq	.+18     	; 0x254 <paddle1SM+0x9c>
  242:	08 95       	ret
 	
-	case  up1_press:
-	break;
+		case  up1_press:
+		break;
 	
-	case up1_release:
-	if (pattern[0]!=224){
+		case up1_release://upshift
+		if (pattern[0]!=224){
  244:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
  248:	80 3e       	cpi	r24, 0xE0	; 224
  24a:	59 f0       	breq	.+22     	; 0x262 <paddle1SM+0xaa>
-		pattern[0]=pattern[0]<<1;
+			pattern[0]=pattern[0]<<1;
  24c:	88 0f       	add	r24, r24
  24e:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
  252:	08 95       	ret
 	
-	case down1_press:
-	break;
+		case down1_press:
+		break;
 	
-	case  down1_release:
-	if (pattern[0]>7){
+		case  down1_release://downshift
+		if (pattern[0]>7){
  254:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
  258:	88 30       	cpi	r24, 0x08	; 8
  25a:	18 f0       	brcs	.+6      	; 0x262 <paddle1SM+0xaa>
-		pattern[0]=pattern[0]>>1;
+			pattern[0]=pattern[0]>>1;
  25c:	86 95       	lsr	r24
  25e:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
  262:	08 95       	ret
 
-00000264 <store_SM>:
+00000264 <paddle2SM>:
+	
+	}
+}
+
+void paddle2SM(){
+	switch (paddle2SM_state){
+ 264:	80 91 15 01 	lds	r24, 0x0115	; 0x800115 <paddle2SM_state>
+ 268:	82 30       	cpi	r24, 0x02	; 2
+ 26a:	59 f1       	breq	.+86     	; 0x2c2 <paddle2SM+0x5e>
+ 26c:	28 f4       	brcc	.+10     	; 0x278 <paddle2SM+0x14>
+ 26e:	88 23       	and	r24, r24
+ 270:	41 f0       	breq	.+16     	; 0x282 <paddle2SM+0x1e>
+ 272:	81 30       	cpi	r24, 0x01	; 1
+ 274:	d1 f0       	breq	.+52     	; 0x2aa <paddle2SM+0x46>
+ 276:	37 c0       	rjmp	.+110    	; 0x2e6 <paddle2SM+0x82>
+ 278:	83 30       	cpi	r24, 0x03	; 3
+ 27a:	31 f1       	breq	.+76     	; 0x2c8 <paddle2SM+0x64>
+ 27c:	84 30       	cpi	r24, 0x04	; 4
+ 27e:	81 f1       	breq	.+96     	; 0x2e0 <paddle2SM+0x7c>
+ 280:	32 c0       	rjmp	.+100    	; 0x2e6 <paddle2SM+0x82>
+		case paddle2SM_wait:
+		if (!up2 && !down2)
+ 282:	02 99       	sbic	0x00, 2	; 0
+ 284:	02 c0       	rjmp	.+4      	; 0x28a <paddle2SM+0x26>
+ 286:	03 9b       	sbis	0x00, 3	; 0
+ 288:	42 c0       	rjmp	.+132    	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = paddle2SM_wait;
+		}else if (up2 && !down2)
+ 28a:	02 9b       	sbis	0x00, 2	; 0
+ 28c:	06 c0       	rjmp	.+12     	; 0x29a <paddle2SM+0x36>
+ 28e:	03 99       	sbic	0x00, 3	; 0
+ 290:	04 c0       	rjmp	.+8      	; 0x29a <paddle2SM+0x36>
+		{
+			paddle2SM_state = up2_press;
+ 292:	81 e0       	ldi	r24, 0x01	; 1
+ 294:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <paddle2SM_state>
+ 298:	08 95       	ret
+			
+		}else if (down2 && !up2)
+ 29a:	03 9b       	sbis	0x00, 3	; 0
+ 29c:	38 c0       	rjmp	.+112    	; 0x30e <paddle2SM+0xaa>
+ 29e:	02 99       	sbic	0x00, 2	; 0
+ 2a0:	36 c0       	rjmp	.+108    	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = down2_press;
+ 2a2:	83 e0       	ldi	r24, 0x03	; 3
+ 2a4:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <paddle2SM_state>
+ 2a8:	08 95       	ret
+		}
+		break;
+		
+		case  up2_press:
+		if (up2 && !down2)
+ 2aa:	02 9b       	sbis	0x00, 2	; 0
+ 2ac:	02 c0       	rjmp	.+4      	; 0x2b2 <paddle2SM+0x4e>
+ 2ae:	03 9b       	sbis	0x00, 3	; 0
+ 2b0:	2e c0       	rjmp	.+92     	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = up2_press;
+		}else if (!up2 && !down2)
+ 2b2:	02 99       	sbic	0x00, 2	; 0
+ 2b4:	2c c0       	rjmp	.+88     	; 0x30e <paddle2SM+0xaa>
+ 2b6:	03 99       	sbic	0x00, 3	; 0
+ 2b8:	2a c0       	rjmp	.+84     	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = up2_release;
+ 2ba:	82 e0       	ldi	r24, 0x02	; 2
+ 2bc:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <paddle2SM_state>
+ 2c0:	17 c0       	rjmp	.+46     	; 0x2f0 <paddle2SM+0x8c>
+		}
+		break;
+		
+		case up2_release:
+		paddle2SM_state = paddle2SM_wait;
+ 2c2:	10 92 15 01 	sts	0x0115, r1	; 0x800115 <paddle2SM_state>
+		break;
+ 2c6:	08 95       	ret
+		
+		case down2_press:
+		if (down2 && !up2)
+ 2c8:	03 9b       	sbis	0x00, 3	; 0
+ 2ca:	02 c0       	rjmp	.+4      	; 0x2d0 <paddle2SM+0x6c>
+ 2cc:	02 9b       	sbis	0x00, 2	; 0
+ 2ce:	1f c0       	rjmp	.+62     	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = down2_press;
+		}else if (!down2 && !up2)
+ 2d0:	03 99       	sbic	0x00, 3	; 0
+ 2d2:	1d c0       	rjmp	.+58     	; 0x30e <paddle2SM+0xaa>
+ 2d4:	02 99       	sbic	0x00, 2	; 0
+ 2d6:	1b c0       	rjmp	.+54     	; 0x30e <paddle2SM+0xaa>
+		{
+			paddle2SM_state = down2_release;
+ 2d8:	84 e0       	ldi	r24, 0x04	; 4
+ 2da:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <paddle2SM_state>
+ 2de:	10 c0       	rjmp	.+32     	; 0x300 <paddle2SM+0x9c>
+		}
+		break;
+		
+		case  down2_release:
+		paddle2SM_state = paddle2SM_wait;
+ 2e0:	10 92 15 01 	sts	0x0115, r1	; 0x800115 <paddle2SM_state>
+		break;
+ 2e4:	08 95       	ret
+		
+		
+	}
+	switch (paddle2SM_state){ //actions
+ 2e6:	82 30       	cpi	r24, 0x02	; 2
+ 2e8:	19 f0       	breq	.+6      	; 0x2f0 <paddle2SM+0x8c>
+ 2ea:	84 30       	cpi	r24, 0x04	; 4
+ 2ec:	49 f0       	breq	.+18     	; 0x300 <paddle2SM+0x9c>
+ 2ee:	08 95       	ret
+		
+		case  up2_press:
+		break;
+		
+		case up2_release://upshift
+		if (pattern[7]!=224){
+ 2f0:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
+ 2f4:	80 3e       	cpi	r24, 0xE0	; 224
+ 2f6:	59 f0       	breq	.+22     	; 0x30e <paddle2SM+0xaa>
+			pattern[7]=pattern[7]<<1;
+ 2f8:	88 0f       	add	r24, r24
+ 2fa:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
+ 2fe:	08 95       	ret
+		
+		case down2_press:
+		break;
+		
+		case  down2_release://downshift
+		if (pattern[7]!=7){
+ 300:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
+ 304:	87 30       	cpi	r24, 0x07	; 7
+ 306:	19 f0       	breq	.+6      	; 0x30e <paddle2SM+0xaa>
+			pattern[7]=pattern[7]>>1;
+ 308:	86 95       	lsr	r24
+ 30a:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
+ 30e:	08 95       	ret
+
+00000310 <store_SM>:
 	}
 	return 0;
 }
 
 void store_SM() {
 	switch (store_state){
- 264:	80 91 15 01 	lds	r24, 0x0115	; 0x800115 <store_state>
- 268:	81 30       	cpi	r24, 0x01	; 1
- 26a:	41 f0       	breq	.+16     	; 0x27c <store_SM+0x18>
- 26c:	18 f0       	brcs	.+6      	; 0x274 <store_SM+0x10>
- 26e:	82 30       	cpi	r24, 0x02	; 2
- 270:	49 f0       	breq	.+18     	; 0x284 <store_SM+0x20>
- 272:	0c c0       	rjmp	.+24     	; 0x28c <store_SM+0x28>
+ 310:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <store_state>
+ 314:	81 30       	cpi	r24, 0x01	; 1
+ 316:	41 f0       	breq	.+16     	; 0x328 <store_SM+0x18>
+ 318:	18 f0       	brcs	.+6      	; 0x320 <store_SM+0x10>
+ 31a:	82 30       	cpi	r24, 0x02	; 2
+ 31c:	49 f0       	breq	.+18     	; 0x330 <store_SM+0x20>
+ 31e:	0c c0       	rjmp	.+24     	; 0x338 <store_SM+0x28>
 		case store_init:
 		store_state = store_high;
- 274:	81 e0       	ldi	r24, 0x01	; 1
- 276:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <store_state>
+ 320:	81 e0       	ldi	r24, 0x01	; 1
+ 322:	80 93 14 01 	sts	0x0114, r24	; 0x800114 <store_state>
 		break;
- 27a:	0d c0       	rjmp	.+26     	; 0x296 <store_SM+0x32>
+ 326:	0d c0       	rjmp	.+26     	; 0x342 <store_SM+0x32>
 		case store_high:
 		store_state = store_low;
- 27c:	82 e0       	ldi	r24, 0x02	; 2
- 27e:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <store_state>
- 282:	0b c0       	rjmp	.+22     	; 0x29a <store_SM+0x36>
+ 328:	82 e0       	ldi	r24, 0x02	; 2
+ 32a:	80 93 14 01 	sts	0x0114, r24	; 0x800114 <store_state>
+ 32e:	0b c0       	rjmp	.+22     	; 0x346 <store_SM+0x36>
 		break;
 		case  store_low:
 		store_state = store_high;
- 284:	81 e0       	ldi	r24, 0x01	; 1
- 286:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <store_state>
+ 330:	81 e0       	ldi	r24, 0x01	; 1
+ 332:	80 93 14 01 	sts	0x0114, r24	; 0x800114 <store_state>
 		break;
- 28a:	05 c0       	rjmp	.+10     	; 0x296 <store_SM+0x32>
+ 336:	05 c0       	rjmp	.+10     	; 0x342 <store_SM+0x32>
 		
 	}
 	switch (store_state){
- 28c:	81 30       	cpi	r24, 0x01	; 1
- 28e:	19 f0       	breq	.+6      	; 0x296 <store_SM+0x32>
- 290:	82 30       	cpi	r24, 0x02	; 2
- 292:	21 f4       	brne	.+8      	; 0x29c <store_SM+0x38>
- 294:	02 c0       	rjmp	.+4      	; 0x29a <store_SM+0x36>
+ 338:	81 30       	cpi	r24, 0x01	; 1
+ 33a:	19 f0       	breq	.+6      	; 0x342 <store_SM+0x32>
+ 33c:	82 30       	cpi	r24, 0x02	; 2
+ 33e:	21 f4       	brne	.+8      	; 0x348 <store_SM+0x38>
+ 340:	02 c0       	rjmp	.+4      	; 0x346 <store_SM+0x36>
 		case  store_init:
 		break;
 		case store_high:
 		STORE_HIGH();
- 296:	29 9a       	sbi	0x05, 1	; 5
+ 342:	29 9a       	sbi	0x05, 1	; 5
 		break;
- 298:	08 95       	ret
+ 344:	08 95       	ret
 		case  store_low:
 		STORE_LOW();
- 29a:	29 98       	cbi	0x05, 1	; 5
- 29c:	08 95       	ret
+ 346:	29 98       	cbi	0x05, 1	; 5
+ 348:	08 95       	ret
 
-0000029e <shiftOut>:
+0000034a <shiftOut>:
 	
 //	_delay_ms(1);
 }
  
 void shiftOut(uint8_t val)
 {
- 29e:	20 e0       	ldi	r18, 0x00	; 0
- 2a0:	30 e0       	ldi	r19, 0x00	; 0
+ 34a:	20 e0       	ldi	r18, 0x00	; 0
+ 34c:	30 e0       	ldi	r19, 0x00	; 0
 	uint8_t i;
 
 	for (i = 0; i < 8; i++)  {
 		//if (bitOrder == LSBFIRST)
 		//digitalWrite(dataPin, !!(val & (1 << i)));
 		 if(!!(val & (1 << i))){
- 2a2:	90 e0       	ldi	r25, 0x00	; 0
- 2a4:	ac 01       	movw	r20, r24
- 2a6:	02 2e       	mov	r0, r18
- 2a8:	02 c0       	rjmp	.+4      	; 0x2ae <shiftOut+0x10>
- 2aa:	55 95       	asr	r21
- 2ac:	47 95       	ror	r20
- 2ae:	0a 94       	dec	r0
- 2b0:	e2 f7       	brpl	.-8      	; 0x2aa <shiftOut+0xc>
- 2b2:	40 ff       	sbrs	r20, 0
- 2b4:	02 c0       	rjmp	.+4      	; 0x2ba <shiftOut+0x1c>
+ 34e:	90 e0       	ldi	r25, 0x00	; 0
+ 350:	ac 01       	movw	r20, r24
+ 352:	02 2e       	mov	r0, r18
+ 354:	02 c0       	rjmp	.+4      	; 0x35a <shiftOut+0x10>
+ 356:	55 95       	asr	r21
+ 358:	47 95       	ror	r20
+ 35a:	0a 94       	dec	r0
+ 35c:	e2 f7       	brpl	.-8      	; 0x356 <shiftOut+0xc>
+ 35e:	40 ff       	sbrs	r20, 0
+ 360:	02 c0       	rjmp	.+4      	; 0x366 <shiftOut+0x1c>
 			 DATA_HIGH();
- 2b6:	28 9a       	sbi	0x05, 0	; 5
- 2b8:	01 c0       	rjmp	.+2      	; 0x2bc <shiftOut+0x1e>
+ 362:	28 9a       	sbi	0x05, 0	; 5
+ 364:	01 c0       	rjmp	.+2      	; 0x368 <shiftOut+0x1e>
 			 }else{
 			 DATA_LOW();
- 2ba:	28 98       	cbi	0x05, 0	; 5
+ 366:	28 98       	cbi	0x05, 0	; 5
 		 }
 		//else
 		//digitalWrite(dataPin, !!(val & (1 << (7 - i))));
 		
 		//digitalWrite(clockPin, HIGH);
 		SHIFT_HIGH();
- 2bc:	2a 9a       	sbi	0x05, 2	; 5
+ 368:	2a 9a       	sbi	0x05, 2	; 5
 		//digitalWrite(clockPin, LOW);
 		SHIFT_LOW();
- 2be:	2a 98       	cbi	0x05, 2	; 5
- 2c0:	2f 5f       	subi	r18, 0xFF	; 255
- 2c2:	3f 4f       	sbci	r19, 0xFF	; 255
+ 36a:	2a 98       	cbi	0x05, 2	; 5
+ 36c:	2f 5f       	subi	r18, 0xFF	; 255
+ 36e:	3f 4f       	sbci	r19, 0xFF	; 255
  
 void shiftOut(uint8_t val)
 {
 	uint8_t i;
 
 	for (i = 0; i < 8; i++)  {
- 2c4:	28 30       	cpi	r18, 0x08	; 8
- 2c6:	31 05       	cpc	r19, r1
- 2c8:	69 f7       	brne	.-38     	; 0x2a4 <shiftOut+0x6>
+ 370:	28 30       	cpi	r18, 0x08	; 8
+ 372:	31 05       	cpc	r19, r1
+ 374:	69 f7       	brne	.-38     	; 0x350 <shiftOut+0x6>
 		//digitalWrite(clockPin, HIGH);
 		SHIFT_HIGH();
 		//digitalWrite(clockPin, LOW);
 		SHIFT_LOW();
 	}
- 2ca:	08 95       	ret
+ 376:	08 95       	ret
 
-000002cc <main>:
-	
-}
+00000378 <main>:
+		
+	}
 }
 
 int main() {
 	ioSetup();
- 2cc:	6e df       	rcall	.-292    	; 0x1aa <ioSetup>
+ 378:	18 df       	rcall	.-464    	; 0x1aa <ioSetup>
 	
 	const unsigned long timerPeriod = 1;
 	TimerSet(timerPeriod); TimerOn();
- 2ce:	61 e0       	ldi	r22, 0x01	; 1
- 2d0:	70 e0       	ldi	r23, 0x00	; 0
- 2d2:	80 e0       	ldi	r24, 0x00	; 0
- 2d4:	90 e0       	ldi	r25, 0x00	; 0
- 2d6:	58 df       	rcall	.-336    	; 0x188 <TimerSet>
- 2d8:	f7 de       	rcall	.-530    	; 0xc8 <TimerOn>
+ 37a:	61 e0       	ldi	r22, 0x01	; 1
+ 37c:	70 e0       	ldi	r23, 0x00	; 0
+ 37e:	80 e0       	ldi	r24, 0x00	; 0
+ 380:	90 e0       	ldi	r25, 0x00	; 0
+ 382:	02 df       	rcall	.-508    	; 0x188 <TimerSet>
+ 384:	a1 de       	rcall	.-702    	; 0xc8 <TimerOn>
 	store_state = store_init;
- 2da:	10 92 15 01 	sts	0x0115, r1	; 0x800115 <store_state>
+ 386:	10 92 14 01 	sts	0x0114, r1	; 0x800114 <store_state>
 	paddle1SM_state = paddle1SM_wait;
- 2de:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
-	while (1){
+ 38a:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
 		paddle1SM();
+		paddle2SM();
 		for (int i=0; i<8; i++) {
 			
 			shiftOut( ~pattern[i]);
 			shiftOut( 128 >> i);
- 2e2:	68 94       	set
- 2e4:	ee 24       	eor	r14, r14
- 2e6:	e7 f8       	bld	r14, 7
+ 38e:	68 94       	set
+ 390:	ee 24       	eor	r14, r14
+ 392:	e7 f8       	bld	r14, 7
 			while(store_SM_elapsedTime>=1){
 				store_SM();
 				store_SM();
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
- 2e8:	f1 2c       	mov	r15, r1
- 2ea:	dd 24       	eor	r13, r13
+ 394:	f1 2c       	mov	r15, r1
 	TimerSet(timerPeriod); TimerOn();
 	store_state = store_init;
 	paddle1SM_state = paddle1SM_wait;
-	//game_Logic();
+	//ballLogicSM();
 	while (1){
 		paddle1SM();
- 2ec:	d3 94       	inc	r13
- 2ee:	64 df       	rcall	.-312    	; 0x1b8 <paddle1SM>
- 2f0:	00 e0       	ldi	r16, 0x00	; 0
- 2f2:	11 e0       	ldi	r17, 0x01	; 1
+ 396:	dd 24       	eor	r13, r13
+ 398:	d3 94       	inc	r13
+		paddle2SM();
+ 39a:	0e df       	rcall	.-484    	; 0x1b8 <paddle1SM>
+ 39c:	63 df       	rcall	.-314    	; 0x264 <paddle2SM>
+ 39e:	00 e0       	ldi	r16, 0x00	; 0
+ 3a0:	11 e0       	ldi	r17, 0x01	; 1
 		for (int i=0; i<8; i++) {
- 2f4:	c0 e0       	ldi	r28, 0x00	; 0
- 2f6:	d0 e0       	ldi	r29, 0x00	; 0
+ 3a2:	c0 e0       	ldi	r28, 0x00	; 0
 			
 			shiftOut( ~pattern[i]);
- 2f8:	f8 01       	movw	r30, r16
- 2fa:	81 91       	ld	r24, Z+
- 2fc:	8f 01       	movw	r16, r30
- 2fe:	80 95       	com	r24
- 300:	ce df       	rcall	.-100    	; 0x29e <shiftOut>
+ 3a4:	d0 e0       	ldi	r29, 0x00	; 0
+ 3a6:	f8 01       	movw	r30, r16
+ 3a8:	81 91       	ld	r24, Z+
+ 3aa:	8f 01       	movw	r16, r30
+ 3ac:	80 95       	com	r24
+ 3ae:	cd df       	rcall	.-102    	; 0x34a <shiftOut>
 			shiftOut( 128 >> i);
- 302:	c7 01       	movw	r24, r14
- 304:	0c 2e       	mov	r0, r28
- 306:	02 c0       	rjmp	.+4      	; 0x30c <main+0x40>
- 308:	95 95       	asr	r25
- 30a:	87 95       	ror	r24
- 30c:	0a 94       	dec	r0
- 30e:	e2 f7       	brpl	.-8      	; 0x308 <main+0x3c>
- 310:	c6 df       	rcall	.-116    	; 0x29e <shiftOut>
+ 3b0:	c7 01       	movw	r24, r14
+ 3b2:	0c 2e       	mov	r0, r28
+ 3b4:	02 c0       	rjmp	.+4      	; 0x3ba <main+0x42>
+ 3b6:	95 95       	asr	r25
+ 3b8:	87 95       	ror	r24
+ 3ba:	0a 94       	dec	r0
+ 3bc:	e2 f7       	brpl	.-8      	; 0x3b6 <main+0x3e>
+ 3be:	c5 df       	rcall	.-118    	; 0x34a <shiftOut>
 			while(store_SM_elapsedTime>=1){
- 312:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <store_SM_elapsedTime>
- 316:	81 11       	cpse	r24, r1
- 318:	0d c0       	rjmp	.+26     	; 0x334 <main+0x68>
+ 3c0:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <store_SM_elapsedTime>
+ 3c4:	81 11       	cpse	r24, r1
+ 3c6:	0d c0       	rjmp	.+26     	; 0x3e2 <main+0x6a>
 				store_SM();
 				store_SM();
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
- 31a:	d0 92 13 01 	sts	0x0113, r13	; 0x800113 <store_SM_elapsedTime>
-	store_state = store_init;
+ 3c8:	d0 92 13 01 	sts	0x0113, r13	; 0x800113 <store_SM_elapsedTime>
 	paddle1SM_state = paddle1SM_wait;
-	//game_Logic();
+	//ballLogicSM();
 	while (1){
 		paddle1SM();
+		paddle2SM();
 		for (int i=0; i<8; i++) {
- 31e:	21 96       	adiw	r28, 0x01	; 1
- 320:	c8 30       	cpi	r28, 0x08	; 8
- 322:	d1 05       	cpc	r29, r1
- 324:	49 f7       	brne	.-46     	; 0x2f8 <main+0x2c>
+ 3cc:	21 96       	adiw	r28, 0x01	; 1
+ 3ce:	c8 30       	cpi	r28, 0x08	; 8
+ 3d0:	d1 05       	cpc	r29, r1
+ 3d2:	49 f7       	brne	.-46     	; 0x3a6 <main+0x2e>
 				store_SM();
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
 		}
 		while(!TimerFlag);
- 326:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <TimerFlag>
+ 3d4:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <TimerFlag>
 		TimerFlag = 0;
- 32a:	88 23       	and	r24, r24
- 32c:	e1 f3       	breq	.-8      	; 0x326 <main+0x5a>
+ 3d8:	88 23       	and	r24, r24
+ 3da:	e1 f3       	breq	.-8      	; 0x3d4 <main+0x5c>
 		
 	}
- 32e:	10 92 10 01 	sts	0x0110, r1	; 0x800110 <TimerFlag>
+ 3dc:	10 92 10 01 	sts	0x0110, r1	; 0x800110 <TimerFlag>
 		for (int i=0; i<8; i++) {
 			
 			shiftOut( ~pattern[i]);
 			shiftOut( 128 >> i);
 			while(store_SM_elapsedTime>=1){
 				store_SM();
- 332:	dd cf       	rjmp	.-70     	; 0x2ee <main+0x22>
+ 3e0:	dc cf       	rjmp	.-72     	; 0x39a <main+0x22>
 				store_SM();
- 334:	97 df       	rcall	.-210    	; 0x264 <store_SM>
- 336:	96 df       	rcall	.-212    	; 0x264 <store_SM>
- 338:	f0 cf       	rjmp	.-32     	; 0x31a <main+0x4e>
+ 3e2:	96 df       	rcall	.-212    	; 0x310 <store_SM>
+ 3e4:	95 df       	rcall	.-214    	; 0x310 <store_SM>
+ 3e6:	f0 cf       	rjmp	.-32     	; 0x3c8 <main+0x50>
 
-0000033a <_exit>:
- 33a:	f8 94       	cli
+000003e8 <_exit>:
+ 3e8:	f8 94       	cli
 
-0000033c <__stop_program>:
- 33c:	ff cf       	rjmp	.-2      	; 0x33c <__stop_program>
+000003ea <__stop_program>:
+ 3ea:	ff cf       	rjmp	.-2      	; 0x3ea <__stop_program>
