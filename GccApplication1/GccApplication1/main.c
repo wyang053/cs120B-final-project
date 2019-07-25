@@ -19,10 +19,13 @@
 #define  STORE_LOW()	(PORTB &= ~ (1<<PORTB1))
 #define  SHIFT_HIGH()	(PORTB |= (1<<PORTB2))
 #define  SHIFT_LOW()	(PORTB &= ~ (1<<PORTB2))
-#define  Up1			(PINA & (1<<PINA0))
-#define  Down1			(PINA & (1<<PINA1))
+#define  up1			((PINA & (1<<PINA0)))
+#define  down1			((PINA & (1<<PINA1)))
 void store_SM();
 enum store_states{store_init, store_high, store_low}store_state;
+enum paddle1SM_states{paddle1SM_wait, up1_press, up1_release, 
+					  down1_press, down1_release}paddle1SM_state;	
+
 void shiftOut(uint8_t val);
 volatile unsigned char TimerFlag=0;
 unsigned long _avr_timer_M=1;
@@ -63,16 +66,27 @@ void TimerSet(unsigned long M){
 	_avr_timer_M=M;
 	_avr_timer_cntcurr = _avr_timer_M;
 }
-int pic[] = {
+ uint8_t pattern[8] = {
 			0b00111000,
-			36,
-			36,
-			36,
-			0,
-			66,
-			60,
+			0b00000000,
+			0b00000000,
+			0b00000000,
+			0b00000000,
+			0b00000000,
+			0b00000000,
 			0b00111000,
 			};
+			
+void game_Logic(){
+	_delay_ms(1000);
+	pattern[3]=0b00000100;
+	_delay_ms(1000);
+	pattern[3]=0b00000000;
+	pattern[2]=0b00001000;
+	_delay_ms(1000);
+	pattern[2]=0b00000000;
+	pattern[1]=0b00010000;
+}
 
 void ioSetup() {
 	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2);
@@ -81,21 +95,93 @@ void ioSetup() {
 	
 }
 void paddle1SM(){
+	switch (paddle1SM_state){
+		case paddle1SM_wait:
+		if (!up1 && !down1)
+		{
+			paddle1SM_state = paddle1SM_wait;
+		}else if (up1 && !down1)
+		{
+			paddle1SM_state = up1_press;
+		
+		}else if (down1 && !up1)
+		{
+			paddle1SM_state = down1_press;
+		}
+		break;
+		
+		case  up1_press:
+		if (up1 && !down1)
+		{
+			paddle1SM_state = up1_press;
+		}else if (!up1 && !down1)
+		{
+			paddle1SM_state = up1_release;
+		}
+		break;
+		
+		case up1_release:
+			paddle1SM_state = paddle1SM_wait;
+			break;
+		
+		case down1_press:
+		if (down1 && !up1)
+		{
+			paddle1SM_state = down1_press;
+		}else if (!down1 && !up1)
+		{
+			paddle1SM_state = down1_release;
+		}
+		break;
+		
+		case  down1_release:
+		paddle1SM_state = paddle1SM_wait;
+		break;
+		
+		
+	}
+switch (paddle1SM_state){ //actions
+	case paddle1SM_wait:
+	break;
 	
+	case  up1_press:
+	break;
+	
+	case up1_release:
+	if (pattern[0]!=224){
+		pattern[0]=pattern[0]<<1;
+	}
+		//upshift
+	break;
+	
+	case down1_press:
+	break;
+	
+	case  down1_release:
+	if (pattern[0]>7){
+		pattern[0]=pattern[0]>>1;
+	}
+	
+	//downshift
+	break;
+	
+	
+}
 }
 
 int main() {
 	ioSetup();
-	paddle1 = 0b00111000;
-	paddle2 = 0b00111000;
+	
 	const unsigned long timerPeriod = 1;
 	TimerSet(timerPeriod); TimerOn();
 	store_state = store_init;
+	paddle1SM_state = paddle1SM_wait;
+	//game_Logic();
 	while (1){
-		
+		paddle1SM();
 		for (int i=0; i<8; i++) {
 			
-			shiftOut( ~pic[i]);
+			shiftOut( ~pattern[i]);
 			shiftOut( 128 >> i);
 			while(store_SM_elapsedTime>=1){
 				store_SM();
