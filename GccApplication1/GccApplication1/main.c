@@ -23,21 +23,27 @@
 #define  down1			((PINA & (1<<PINA1)))
 #define  up2			((PINA & (1<<PINA2)))
 #define  down2			((PINA & (1<<PINA3)))
+#define  reset			((PINA & (1<<PINA4)))
+//#define	 _BV( bit )		( 1<<(bit) )
 void store_SM();
 enum store_states{store_init, store_high, store_low}store_state;
 enum paddle1SM_states{paddle1SM_wait, up1_press, up1_release, 
 					  down1_press, down1_release}paddle1SM_state;
 enum paddle2SM_states{paddle2SM_wait, up2_press, up2_release,
 					  down2_press, down2_release}paddle2SM_state;					  	
-enum ballLogicSM_states{ball_init, ball_left, ball_right, ball_up, 
-						ball_down, ball_upleft, ball_downleft, 
-						ball_upright, ball_downright}ballLogicSM_state;
+enum ballLogicSM_states{ball_init, ball_wait, ball_left, ball_right, 
+						ball_upleft, ball_downleft, ball_upright, 
+						ball_downright}ballLogicSM_state;
 void shiftOut(uint8_t val);
 volatile unsigned char TimerFlag=0;
 unsigned long _avr_timer_M=1;
 unsigned long _avr_timer_cntcurr=0;
 unsigned char store_SM_elapsedTime;
-
+unsigned short ballLogicSM_elapsedTime;
+unsigned char paddle1POS;
+unsigned char paddle2POS;
+unsigned char xPOS;
+unsigned char yPOS;// y position is in binary
 
 void TimerOn() {
 	TCCR1B = 0x0B;
@@ -81,16 +87,263 @@ void TimerSet(unsigned long M){
 			0b00000000,
 			0b00111000,
 			};
-			
-void ballLogicSM(){
 
+void softRest(){
+	if (reset)
+	{
+		paddle1SM_state = paddle1SM_wait;
+		paddle2SM_state = paddle2SM_wait;
+		ballLogicSM_state = ball_init;
+		paddle1POS=16;
+		paddle2POS=16;
+		xPOS = 3;
+		yPOS = 16;
+		ballPOS_update();
+		pattern[0]=0b00111000;
+		pattern[7]=0b00111000;
+	}
+}			
+	
+	
+void ballPOS_update(){
+	/*
+	char i;
+	while (i>0 && i<7)
+	{
+	pattern[i]=0;	
+	i++;
+	}
+	*/
+	
+	pattern [xPOS]=(yPOS)<<0;
+	if (ballLogicSM_state == ball_left || ballLogicSM_state == ball_upleft || ballLogicSM_state == ball_downleft)
+	{
+		pattern[xPOS+1]=0;
+	}else if (ballLogicSM_state == ball_right || ballLogicSM_state == ball_upright || ballLogicSM_state == ball_downright)
+	{
+		pattern[xPOS-1]=0;
+	}
+	
+}	
+ 
+void ballLogicSM(){
+	switch (ballLogicSM_state){
+		case ball_init:
+		ballLogicSM_state = ball_wait;
+		break;
+		case  ball_wait:
+		ballLogicSM_state = ball_left;
+		break;
+		case ball_left:
+		if (xPOS>1)
+		{
+			ballLogicSM_state = ball_left;
+		}else {
+			if (paddle1POS == yPOS)
+			{
+				ballLogicSM_state = ball_right;
+			}else if (paddle1POS == yPOS<<1) //hit paddle1 bottom //(paddle1POS<<1) == yPOS
+			{
+				ballLogicSM_state = ball_upright;
+			}else if (paddle1POS == yPOS>>1)
+			{
+				ballLogicSM_state = ball_downright;
+			}
+			
+		}
+		break;
+		case ball_right:
+		if (xPOS!=6)
+		{
+			ballLogicSM_state = ball_right;
+			}else {
+			if (paddle2POS == yPOS ) //test middle hit
+			{
+				ballLogicSM_state = ball_left;
+			}else if (paddle2POS == yPOS<<1) 
+			{
+				ballLogicSM_state = ball_upleft;
+			}else if (paddle2POS == yPOS>>1)
+			{
+				ballLogicSM_state = ball_downleft;
+			}
+			
+		}
+		break;
+		
+		case ball_upright:
+		if (yPOS<128 && xPOS>1 )
+		{
+			ballLogicSM_state = ball_upright;
+		} else {
+			if (xPOS!=6)
+			{
+				ballLogicSM_state = ball_downright;
+			}else if (paddle2POS==yPOS>>2) // top hit
+				{
+					ballLogicSM_state = ball_downleft;
+				}else if (paddle2POS==yPOS>>1) // middle hit
+				{
+					ballLogicSM_state = ball_downleft;
+				}else if (paddle2POS==yPOS) // bottom hit
+				{
+					ballLogicSM_state = ball_upleft;
+				}
+			
+		}
+		break;
+		
+		case ball_downright:
+		if (yPOS>1 && xPOS<6)
+		{
+			ballLogicSM_state = ball_downright;
+			} else {
+				if (xPOS!=6)
+				{
+					ballLogicSM_state = ball_upright;
+				}else if (paddle2POS==yPOS>>2) // top hit
+				{
+					ballLogicSM_state = ball_downleft;
+				}else if (paddle2POS==yPOS>>1) // bottom hit
+				{
+					ballLogicSM_state = ball_upleft;
+				}
+			
+		}
+		break;
+		case  ball_downleft:
+		if (yPOS>1 && xPOS>1)
+		{
+			ballLogicSM_state = ball_downleft;
+			
+		}else 
+		{
+			if(xPOS!=1){
+				ballLogicSM_state = ball_upleft;
+			} else if (paddle1POS==yPOS>>2) // top hit
+			{
+				ballLogicSM_state = ball_upright;
+			}else if (paddle1POS==yPOS>>1) // middle hit
+			{
+				ballLogicSM_state = ball_downright;
+			}else if (paddle1POS==yPOS) // bottom hit
+			{
+				ballLogicSM_state = ball_upright;
+			}
+			
+		}
+		break;
+		
+		case ball_upleft:
+		if (yPOS<128 && xPOS>1)
+		{
+			ballLogicSM_state = ball_upleft;
+		}else {
+			if (xPOS!=1)
+			{
+				ballLogicSM_state = ball_downleft;
+			}else if (paddle1POS==yPOS<<2) // bottom hit
+				{
+					ballLogicSM_state = ball_upright;
+				}else if (paddle1POS==yPOS<<1) // middle hit
+				{
+					ballLogicSM_state = ball_downright;
+				}else if (paddle1POS==yPOS) // top hit
+				{
+					ballLogicSM_state = ball_upright;
+				}
+			
+		}
+		break;
+	}
+	
+	switch (ballLogicSM_state){
+		case ball_init:
+		xPOS = 3;
+		yPOS = 16;
+		ballPOS_update();
+		break;
+		case  ball_wait:
+		break;
+		case ball_left:
+		xPOS --;
+		yPOS = 16;
+		ballPOS_update();
+		break;
+		case ball_right:
+		xPOS ++;
+		yPOS = 16;
+		ballPOS_update();
+		break;
+		case ball_upright:
+		xPOS ++;
+		yPOS =yPOS*2;
+		ballPOS_update();
+		break;
+		case ball_downright:
+		xPOS ++;
+		yPOS =yPOS/2;
+		ballPOS_update();
+		break;
+		case ball_downleft:
+		xPOS --;
+		yPOS =yPOS/2;
+		ballPOS_update();
+		break;
+		case ball_upleft:
+		xPOS --;
+		yPOS =yPOS*2;
+		ballPOS_update();
+		break;
+	}
+	/*  not working switch
+	switch (ballLogicSM_state){
+		case ball_init:
+		ballLogicSM_state = ball_wait;
+		break;
+		case ball_wait:
+		ballLogicSM_state = ball_left;
+		break;
+		
+		case  ball_left:
+		
+		if (!(xPOS==1))
+		{
+			ballLogicSM_state = ball_left;
+		}else if (xPOS==1)
+		{
+			ballLogicSM_state = ball_right;
+		}
+		
+		break;
+		case ball_right:
+		break;
+	}
+	
+	switch (ballLogicSM_state){
+		case ball_init:
+		xPOS=3;yPOS=16;
+		ballPOS_update();
+		break;
+		case  ball_wait:
+		break;
+		
+		case  ball_left:
+		xPOS=2;yPOS=16;
+		ballPOS_update();
+		break;
+		case  ball_right:
+		break;
+		
+	}
+	*/
 	
 }
 
 void ioSetup() {
 	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2); //PORTB as output
 	
-	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3); //PORTA as input
+	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3) | (1<<DDA4); //PORTA as input
 	
 }
 void paddle1SM(){
@@ -141,14 +394,16 @@ void paddle1SM(){
 	}
 switch (paddle1SM_state){ //actions
 		case paddle1SM_wait:
+		
 		break;
-	
+		
 		case  up1_press:
 		break;
 	
 		case up1_release://upshift
 		if (pattern[0]!=224){
 			pattern[0]=pattern[0]<<1;
+			paddle1POS=paddle1POS<<1;
 		}
 	
 		break;
@@ -159,6 +414,7 @@ switch (paddle1SM_state){ //actions
 		case  down1_release://downshift
 		if (pattern[0]>7){
 			pattern[0]=pattern[0]>>1;
+			paddle1POS=paddle1POS>>1;
 		}
 
 		break;
@@ -223,6 +479,7 @@ void paddle2SM(){
 		case up2_release://upshift
 		if (pattern[7]!=224){
 			pattern[7]=pattern[7]<<1;
+			paddle2POS=paddle2POS<<1;
 		}
 		
 		break;
@@ -233,6 +490,7 @@ void paddle2SM(){
 		case  down2_release://downshift
 		if (pattern[7]!=7){
 			pattern[7]=pattern[7]>>1;
+			paddle2POS=paddle2POS>>1;
 		}
 
 		break;
@@ -248,10 +506,21 @@ int main() {
 	TimerSet(timerPeriod); TimerOn();
 	store_state = store_init;
 	paddle1SM_state = paddle1SM_wait;
-	//ballLogicSM();
+	paddle2SM_state = paddle2SM_wait;
+	ballLogicSM_state = ball_init;
+	paddle1POS=16;
+	paddle2POS=16;
+	xPOS = 3;
+	yPOS = 16;
+	ballPOS_update();
+	//unsigned char i;
+	//pattern[3]=0b00010000;
+	
 	while (1){
+		softRest();
 		paddle1SM();
 		paddle2SM();
+		
 		for (int i=0; i<8; i++) {
 			
 			shiftOut( ~pattern[i]);
@@ -263,9 +532,17 @@ int main() {
 			}
 			store_SM_elapsedTime += timerPeriod;
 		}
+		
+		while (ballLogicSM_elapsedTime>=300){
+			ballLogicSM();
+			//xPOS=3;yPOS=16;
+			//ballPOS_update();
+			ballLogicSM_elapsedTime = 0;
+		}
+		
 		while(!TimerFlag);
 		TimerFlag = 0;
-		
+		ballLogicSM_elapsedTime += timerPeriod;
 	}
 	return 0;
 }
