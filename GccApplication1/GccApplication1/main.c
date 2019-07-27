@@ -1,24 +1,34 @@
 /*
  * GccApplication1.c
- * Ping Pong game. inputs: 4 buttons. output:8x8 led.
+ * Ping Pong game. inputs: 4 buttons. output:8x8 led matrix.
  * Complexities: shift registers, 2 players, game logic.
  *
- *
- *
+ *The classic pong game consists of two paddles on opposite 
+ *sides of the screen. The user is controlling one of the 
+ *paddles while the computer controls the other paddle. 
+ *There is a ball that bounces in between the paddles. 
+ *The ball speeds up and changes angle (as well as direction) 
+ *when it hits the corner of either paddle. If the ball hits 
+ *the center of the paddle it continues at the same angle, 
+ *but reverses direction.
  *
  * Created: 7/23/2019 11:38:09 AM
- * Author : y1064
+ * Author : Weiyi Yang
  */
 #define 	F_CPU   8000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
+//#include <util/delay.h>
 #define  DATA_HIGH()	(PORTB |= (1<<PORTB0))
 #define  DATA_LOW()		(PORTB &= ~ (1<<PORTB0))
 #define  STORE_HIGH()	(PORTB |= (1<<PORTB1))
 #define  STORE_LOW()	(PORTB &= ~ (1<<PORTB1))
 #define  SHIFT_HIGH()	(PORTB |= (1<<PORTB2))
 #define  SHIFT_LOW()	(PORTB &= ~ (1<<PORTB2))
+#define  LED1_HIGH()	(PORTB |= (1<<PORTB3))
+#define  LED1_LOW()		(PORTB &= ~ (1<<PORTB3))
+#define  LED2_HIGH()	(PORTB |= (1<<PORTB4))
+#define  LED2_LOW()		(PORTB &= ~ (1<<PORTB4))
 #define  up1			((PINA & (1<<PINA0)))
 #define  down1			((PINA & (1<<PINA1)))
 #define  up2			((PINA & (1<<PINA2)))
@@ -33,7 +43,8 @@ enum paddle2SM_states{paddle2SM_wait, up2_press, up2_release,
 					  down2_press, down2_release}paddle2SM_state;					  	
 enum ballLogicSM_states{ball_init, ball_wait, ball_left, ball_right, 
 						ball_upleft, ball_downleft, ball_upright, 
-						ball_downright}ballLogicSM_state;
+						ball_downright, player1win, player2win
+						}ballLogicSM_state;
 void shiftOut(uint8_t val);
 volatile unsigned char TimerFlag=0;
 unsigned long _avr_timer_M=1;
@@ -94,6 +105,8 @@ void softRest(){
 		paddle1SM_state = paddle1SM_wait;
 		paddle2SM_state = paddle2SM_wait;
 		ballLogicSM_state = ball_init;
+		LED1_LOW();
+		LED2_LOW();
 		paddle1POS=16;
 		paddle2POS=16;
 		xPOS = 3;
@@ -116,10 +129,12 @@ void ballPOS_update(){
 	*/
 	
 	pattern [xPOS]=(yPOS)<<0;
-	if (ballLogicSM_state == ball_left || ballLogicSM_state == ball_upleft || ballLogicSM_state == ball_downleft)
+	if (ballLogicSM_state == ball_left || ballLogicSM_state == ball_upleft 
+	|| ballLogicSM_state == ball_downleft)
 	{
 		pattern[xPOS+1]=0;
-	}else if (ballLogicSM_state == ball_right || ballLogicSM_state == ball_upright || ballLogicSM_state == ball_downright)
+	}else if (ballLogicSM_state == ball_right 
+	|| ballLogicSM_state == ball_upright || ballLogicSM_state == ball_downright)
 	{
 		pattern[xPOS-1]=0;
 	}
@@ -142,12 +157,15 @@ void ballLogicSM(){
 			if (paddle1POS == yPOS)
 			{
 				ballLogicSM_state = ball_right;
-			}else if (paddle1POS == yPOS<<1) //hit paddle1 bottom //(paddle1POS<<1) == yPOS
+			}else if (paddle1POS == yPOS<<1) //hit paddle1 bottom 
 			{
 				ballLogicSM_state = ball_upright;
 			}else if (paddle1POS == yPOS>>1)
 			{
 				ballLogicSM_state = ball_downright;
+			}else
+			{
+				ballLogicSM_state = player2win;
 			}
 			
 		}
@@ -204,7 +222,10 @@ void ballLogicSM(){
 				}else if (paddle2POS==yPOS>>2) // top hit
 				{
 					ballLogicSM_state = ball_downleft;
-				}else if (paddle2POS==yPOS>>1) // bottom hit
+				}else if (paddle2POS==yPOS>>1) // middle hit
+				{
+					ballLogicSM_state = ball_upleft;
+				}else if (paddle2POS==yPOS) // bottom hit
 				{
 					ballLogicSM_state = ball_upleft;
 				}
@@ -222,10 +243,10 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_upleft;
 			} else if (paddle1POS==yPOS>>2) // top hit
 			{
-				ballLogicSM_state = ball_upright;
+				ballLogicSM_state = ball_downright;
 			}else if (paddle1POS==yPOS>>1) // middle hit
 			{
-				ballLogicSM_state = ball_downright;
+				ballLogicSM_state = ball_upright;
 			}else if (paddle1POS==yPOS) // bottom hit
 			{
 				ballLogicSM_state = ball_upright;
@@ -255,7 +276,14 @@ void ballLogicSM(){
 			
 		}
 		break;
+		case player1win:
+		ballLogicSM_state = player1win;
+		break;
+		case player2win:
+		ballLogicSM_state = player2win;
+		break;
 	}
+		
 	
 	switch (ballLogicSM_state){
 		case ball_init:
@@ -294,6 +322,12 @@ void ballLogicSM(){
 		xPOS --;
 		yPOS =yPOS*2;
 		ballPOS_update();
+		break;
+		case player1win:
+		LED1_HIGH();
+		break;
+		case player2win:
+		LED2_HIGH();
 		break;
 	}
 	/*  not working switch
@@ -341,9 +375,10 @@ void ballLogicSM(){
 }
 
 void ioSetup() {
-	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2); //PORTB as output
+	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2) | (1<<DDB3) | (1<<DDB4); //PORTB as output
 	
-	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3) | (1<<DDA4); //PORTA as input
+	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3) | (1<<DDA4); 
+	 //PORTA as input
 	
 }
 void paddle1SM(){
@@ -508,13 +543,14 @@ int main() {
 	paddle1SM_state = paddle1SM_wait;
 	paddle2SM_state = paddle2SM_wait;
 	ballLogicSM_state = ball_init;
+	LED1_LOW();
+	LED2_LOW();
 	paddle1POS=16;
 	paddle2POS=16;
 	xPOS = 3;
 	yPOS = 16;
 	ballPOS_update();
-	//unsigned char i;
-	//pattern[3]=0b00010000;
+	
 	
 	while (1){
 		softRest();
@@ -535,8 +571,7 @@ int main() {
 		
 		while (ballLogicSM_elapsedTime>=300){
 			ballLogicSM();
-			//xPOS=3;yPOS=16;
-			//ballPOS_update();
+			
 			ballLogicSM_elapsedTime = 0;
 		}
 		
@@ -581,19 +616,12 @@ void shiftOut(uint8_t val)
 	uint8_t i;
 
 	for (i = 0; i < 8; i++)  {
-		//if (bitOrder == LSBFIRST)
-		//digitalWrite(dataPin, !!(val & (1 << i)));
 		 if(!!(val & (1 << i))){
 			 DATA_HIGH();
 			 }else{
 			 DATA_LOW();
 		 }
-		//else
-		//digitalWrite(dataPin, !!(val & (1 << (7 - i))));
-		
-		//digitalWrite(clockPin, HIGH);
 		SHIFT_HIGH();
-		//digitalWrite(clockPin, LOW);
 		SHIFT_LOW();
 	}
 }
