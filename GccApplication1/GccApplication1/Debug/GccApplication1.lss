@@ -3,31 +3,31 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000c  00800100  0000081e  000008b2  2**0
+  0 .data         0000000c  00800100  0000082e  000008c2  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000081e  00000000  00000000  00000094  2**1
+  1 .text         0000082e  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000010  0080010c  0080010c  000008be  2**0
+  2 .bss          00000010  0080010c  0080010c  000008ce  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000008be  2**0
+  3 .comment      00000030  00000000  00000000  000008ce  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000008f0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000900  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000088  00000000  00000000  00000930  2**0
+  5 .debug_aranges 00000088  00000000  00000000  00000940  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000ca0  00000000  00000000  000009b8  2**0
+  6 .debug_info   00000ca0  00000000  00000000  000009c8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000914  00000000  00000000  00001658  2**0
+  7 .debug_abbrev 00000914  00000000  00000000  00001668  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000094d  00000000  00000000  00001f6c  2**0
+  8 .debug_line   0000094d  00000000  00000000  00001f7c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000114  00000000  00000000  000028bc  2**2
+  9 .debug_frame  00000114  00000000  00000000  000028cc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006e0  00000000  00000000  000029d0  2**0
+ 10 .debug_str    000006e0  00000000  00000000  000029e0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000000be  00000000  00000000  000030b0  2**0
+ 11 .debug_loc    000000be  00000000  00000000  000030c0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000098  00000000  00000000  0000316e  2**0
+ 12 .debug_ranges 00000098  00000000  00000000  0000317e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -107,22 +107,22 @@ Disassembly of section .text:
   8e:	34 01       	movw	r6, r8
   90:	38 01       	movw	r6, r16
   92:	61 01       	movw	r12, r2
-  94:	1a 02       	muls	r17, r26
-  96:	ea 01       	movw	r28, r20
+  94:	22 02       	muls	r18, r18
+  96:	f2 01       	movw	r30, r4
   98:	8a 01       	movw	r16, r20
-  9a:	ba 01       	movw	r22, r20
-  9c:	a8 02       	muls	r26, r24
-  9e:	aa 02       	muls	r26, r26
-  a0:	5c 02       	muls	r21, r28
-  a2:	ab 02       	muls	r26, r27
-  a4:	64 02       	muls	r22, r20
-  a6:	6e 02       	muls	r22, r30
-  a8:	9c 02       	muls	r25, r28
-  aa:	90 02       	muls	r25, r16
-  ac:	78 02       	muls	r23, r24
-  ae:	84 02       	muls	r24, r20
-  b0:	a8 02       	muls	r26, r24
-  b2:	aa 02       	muls	r26, r26
+  9a:	c2 01       	movw	r24, r4
+  9c:	b0 02       	muls	r27, r16
+  9e:	b2 02       	muls	r27, r18
+  a0:	64 02       	muls	r22, r20
+  a2:	b3 02       	muls	r27, r19
+  a4:	6c 02       	muls	r22, r28
+  a6:	76 02       	muls	r23, r22
+  a8:	a4 02       	muls	r26, r20
+  aa:	98 02       	muls	r25, r24
+  ac:	80 02       	muls	r24, r16
+  ae:	8c 02       	muls	r24, r28
+  b0:	b0 02       	muls	r27, r16
+  b2:	b2 02       	muls	r27, r18
 
 000000b4 <__ctors_end>:
   b4:	11 24       	eor	r1, r1
@@ -136,7 +136,7 @@ Disassembly of section .text:
   c0:	11 e0       	ldi	r17, 0x01	; 1
   c2:	a0 e0       	ldi	r26, 0x00	; 0
   c4:	b1 e0       	ldi	r27, 0x01	; 1
-  c6:	ee e1       	ldi	r30, 0x1E	; 30
+  c6:	ee e2       	ldi	r30, 0x2E	; 46
   c8:	f8 e0       	ldi	r31, 0x08	; 8
   ca:	00 e0       	ldi	r16, 0x00	; 0
   cc:	0b bf       	out	0x3b, r16	; 59
@@ -160,8 +160,8 @@ Disassembly of section .text:
   e4:	ac 31       	cpi	r26, 0x1C	; 28
   e6:	b2 07       	cpc	r27, r18
   e8:	e1 f7       	brne	.-8      	; 0xe2 <.do_clear_bss_loop>
-  ea:	31 d3       	rcall	.+1634   	; 0x74e <main>
-  ec:	96 c3       	rjmp	.+1836   	; 0x81a <_exit>
+  ea:	39 d3       	rcall	.+1650   	; 0x75e <main>
+  ec:	9e c3       	rjmp	.+1852   	; 0x82a <_exit>
 
 000000ee <__bad_interrupt>:
   ee:	88 cf       	rjmp	.-240    	; 0x0 <__vectors>
@@ -375,11 +375,11 @@ void ballLogicSM(){
  250:	8a 30       	cpi	r24, 0x0A	; 10
  252:	91 05       	cpc	r25, r1
  254:	08 f0       	brcs	.+2      	; 0x258 <ballLogicSM+0x10>
- 256:	26 c1       	rjmp	.+588    	; 0x4a4 <__LOCK_REGION_LENGTH__+0xa4>
+ 256:	2e c1       	rjmp	.+604    	; 0x4b4 <__LOCK_REGION_LENGTH__+0xb4>
  258:	fc 01       	movw	r30, r24
  25a:	ea 5b       	subi	r30, 0xBA	; 186
  25c:	ff 4f       	sbci	r31, 0xFF	; 255
- 25e:	d4 c2       	rjmp	.+1448   	; 0x808 <__tablejump2__>
+ 25e:	dc c2       	rjmp	.+1464   	; 0x818 <__tablejump2__>
 		case ball_init:
 		ballLogicSM_state = ball_wait;
  260:	81 e0       	ldi	r24, 0x01	; 1
@@ -391,13 +391,13 @@ void ballLogicSM(){
  268:	82 e0       	ldi	r24, 0x02	; 2
  26a:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
 		break;
- 26e:	2c c1       	rjmp	.+600    	; 0x4c8 <__LOCK_REGION_LENGTH__+0xc8>
+ 26e:	34 c1       	rjmp	.+616    	; 0x4d8 <__LOCK_REGION_LENGTH__+0xd8>
 		case ball_left:
 		if (xPOS>1)
  270:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
  274:	82 30       	cpi	r24, 0x02	; 2
  276:	08 f0       	brcs	.+2      	; 0x27a <ballLogicSM+0x32>
- 278:	27 c1       	rjmp	.+590    	; 0x4c8 <__LOCK_REGION_LENGTH__+0xc8>
+ 278:	2f c1       	rjmp	.+606    	; 0x4d8 <__LOCK_REGION_LENGTH__+0xd8>
 		{
 			ballLogicSM_state = ball_left;
 		}else {
@@ -410,7 +410,7 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_right;
  286:	83 e0       	ldi	r24, 0x03	; 3
  288:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 28c:	27 c1       	rjmp	.+590    	; 0x4dc <__LOCK_REGION_LENGTH__+0xdc>
+ 28c:	2f c1       	rjmp	.+606    	; 0x4ec <__LOCK_REGION_LENGTH__+0xec>
 			}else if (paddle1POS == yPOS<<1) //hit paddle1 bottom 
  28e:	62 2f       	mov	r22, r18
  290:	70 e0       	ldi	r23, 0x00	; 0
@@ -425,7 +425,7 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_upright;
  2a0:	86 e0       	ldi	r24, 0x06	; 6
  2a2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 2a6:	24 c1       	rjmp	.+584    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 2a6:	2c c1       	rjmp	.+600    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 			}else if (paddle1POS == yPOS>>1)
  2a8:	96 95       	lsr	r25
  2aa:	29 13       	cpse	r18, r25
@@ -434,15 +434,15 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_downright;
  2ae:	87 e0       	ldi	r24, 0x07	; 7
  2b0:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 2b4:	29 c1       	rjmp	.+594    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
+ 2b4:	31 c1       	rjmp	.+610    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
 			}else if (xPOS<1)
  2b6:	81 11       	cpse	r24, r1
- 2b8:	07 c1       	rjmp	.+526    	; 0x4c8 <__LOCK_REGION_LENGTH__+0xc8>
+ 2b8:	0f c1       	rjmp	.+542    	; 0x4d8 <__LOCK_REGION_LENGTH__+0xd8>
 			{
 				ballLogicSM_state = player2win;
  2ba:	89 e0       	ldi	r24, 0x09	; 9
  2bc:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 2c0:	49 c1       	rjmp	.+658    	; 0x554 <__LOCK_REGION_LENGTH__+0x154>
+ 2c0:	51 c1       	rjmp	.+674    	; 0x564 <__LOCK_REGION_LENGTH__+0x164>
 			}
 			
 		}
@@ -452,7 +452,7 @@ void ballLogicSM(){
  2c2:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
  2c6:	86 30       	cpi	r24, 0x06	; 6
  2c8:	08 f4       	brcc	.+2      	; 0x2cc <ballLogicSM+0x84>
- 2ca:	08 c1       	rjmp	.+528    	; 0x4dc <__LOCK_REGION_LENGTH__+0xdc>
+ 2ca:	10 c1       	rjmp	.+544    	; 0x4ec <__LOCK_REGION_LENGTH__+0xec>
 		{
 			ballLogicSM_state = ball_right;
 		}else if (xPOS>6){
@@ -461,7 +461,7 @@ void ballLogicSM(){
 			ballLogicSM_state = player1win;
  2d0:	88 e0       	ldi	r24, 0x08	; 8
  2d2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 2d6:	3c c1       	rjmp	.+632    	; 0x550 <__LOCK_REGION_LENGTH__+0x150>
+ 2d6:	44 c1       	rjmp	.+648    	; 0x560 <__LOCK_REGION_LENGTH__+0x160>
 		}else {
 			if (paddle2POS == yPOS ) //test middle hit
  2d8:	90 91 18 01 	lds	r25, 0x0118	; 0x800118 <paddle2POS>
@@ -472,7 +472,7 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_left;
  2e4:	82 e0       	ldi	r24, 0x02	; 2
  2e6:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 2ea:	ee c0       	rjmp	.+476    	; 0x4c8 <__LOCK_REGION_LENGTH__+0xc8>
+ 2ea:	f6 c0       	rjmp	.+492    	; 0x4d8 <__LOCK_REGION_LENGTH__+0xd8>
 			}else if (paddle2POS == yPOS<<1) 
  2ec:	49 2f       	mov	r20, r25
  2ee:	50 e0       	ldi	r21, 0x00	; 0
@@ -487,21 +487,21 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_upleft;
  2fe:	84 e0       	ldi	r24, 0x04	; 4
  300:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 304:	19 c1       	rjmp	.+562    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 304:	21 c1       	rjmp	.+578    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 			}else if (paddle2POS == yPOS>>1)
  306:	86 95       	lsr	r24
  308:	98 13       	cpse	r25, r24
- 30a:	e8 c0       	rjmp	.+464    	; 0x4dc <__LOCK_REGION_LENGTH__+0xdc>
+ 30a:	f0 c0       	rjmp	.+480    	; 0x4ec <__LOCK_REGION_LENGTH__+0xec>
 			{
 				ballLogicSM_state = ball_downleft;
  30c:	85 e0       	ldi	r24, 0x05	; 5
  30e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 312:	06 c1       	rjmp	.+524    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
+ 312:	0e c1       	rjmp	.+540    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
 			
 		}
 		break;
 		
-		case ball_upright: //not working
+		case ball_upright: //fixed
 		if (yPOS<128 && xPOS<6 )
  314:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
  318:	88 23       	and	r24, r24
@@ -509,7 +509,7 @@ void ballLogicSM(){
  31c:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
  320:	96 30       	cpi	r25, 0x06	; 6
  322:	08 f4       	brcc	.+2      	; 0x326 <ballLogicSM+0xde>
- 324:	e5 c0       	rjmp	.+458    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 324:	ed c0       	rjmp	.+474    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 		{
 			ballLogicSM_state = ball_upright;
 		}else if (xPOS>6){
@@ -519,7 +519,7 @@ void ballLogicSM(){
 			ballLogicSM_state = player1win;
  32e:	88 e0       	ldi	r24, 0x08	; 8
  330:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 334:	0d c1       	rjmp	.+538    	; 0x550 <__LOCK_REGION_LENGTH__+0x150>
+ 334:	15 c1       	rjmp	.+554    	; 0x560 <__LOCK_REGION_LENGTH__+0x160>
 		} else {
 			if (xPOS!=6)
  336:	96 30       	cpi	r25, 0x06	; 6
@@ -528,956 +528,964 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_downright;
  33a:	87 e0       	ldi	r24, 0x07	; 7
  33c:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 340:	e3 c0       	rjmp	.+454    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
-			}else if (paddle2POS==yPOS>>2) // top hit
+ 340:	eb c0       	rjmp	.+470    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
+			}else if (paddle2POS==yPOS<<2) // top hit
  342:	90 91 18 01 	lds	r25, 0x0118	; 0x800118 <paddle2POS>
- 346:	28 2f       	mov	r18, r24
- 348:	26 95       	lsr	r18
- 34a:	26 95       	lsr	r18
- 34c:	29 13       	cpse	r18, r25
- 34e:	04 c0       	rjmp	.+8      	; 0x358 <ballLogicSM+0x110>
-				{
-					ballLogicSM_state = ball_downleft;
- 350:	85 e0       	ldi	r24, 0x05	; 5
- 352:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 356:	e4 c0       	rjmp	.+456    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
-				}else if (paddle2POS==yPOS>>1) // middle hit
- 358:	28 2f       	mov	r18, r24
- 35a:	26 95       	lsr	r18
- 35c:	92 13       	cpse	r25, r18
- 35e:	04 c0       	rjmp	.+8      	; 0x368 <ballLogicSM+0x120>
-				{
-					ballLogicSM_state = ball_downleft;
- 360:	85 e0       	ldi	r24, 0x05	; 5
- 362:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 366:	dc c0       	rjmp	.+440    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
-				}else if (paddle2POS==yPOS) // bottom hit
- 368:	89 13       	cpse	r24, r25
- 36a:	c2 c0       	rjmp	.+388    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 346:	49 2f       	mov	r20, r25
+ 348:	50 e0       	ldi	r21, 0x00	; 0
+ 34a:	28 2f       	mov	r18, r24
+ 34c:	30 e0       	ldi	r19, 0x00	; 0
+ 34e:	b9 01       	movw	r22, r18
+ 350:	66 0f       	add	r22, r22
+ 352:	77 1f       	adc	r23, r23
+ 354:	66 0f       	add	r22, r22
+ 356:	77 1f       	adc	r23, r23
+ 358:	46 17       	cp	r20, r22
+ 35a:	57 07       	cpc	r21, r23
+ 35c:	21 f4       	brne	.+8      	; 0x366 <ballLogicSM+0x11e>
 				{
 					ballLogicSM_state = ball_upleft;
- 36c:	84 e0       	ldi	r24, 0x04	; 4
- 36e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 372:	e2 c0       	rjmp	.+452    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 35e:	84 e0       	ldi	r24, 0x04	; 4
+ 360:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 364:	f1 c0       	rjmp	.+482    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
+				}else if (paddle2POS==yPOS<<1) // middle hit
+ 366:	22 0f       	add	r18, r18
+ 368:	33 1f       	adc	r19, r19
+ 36a:	42 17       	cp	r20, r18
+ 36c:	53 07       	cpc	r21, r19
+ 36e:	21 f4       	brne	.+8      	; 0x378 <ballLogicSM+0x130>
+				{
+					ballLogicSM_state = ball_downleft;
+ 370:	85 e0       	ldi	r24, 0x05	; 5
+ 372:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 376:	dc c0       	rjmp	.+440    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
+				}else if (paddle2POS==yPOS) // bottom hit
+ 378:	89 13       	cpse	r24, r25
+ 37a:	c2 c0       	rjmp	.+388    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
+				{
+					ballLogicSM_state = ball_upleft;
+ 37c:	84 e0       	ldi	r24, 0x04	; 4
+ 37e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 382:	e2 c0       	rjmp	.+452    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 			
 		}
 		break;
 		
 		case ball_downright:
 		if (yPOS>1 && xPOS<6)
- 374:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 378:	82 30       	cpi	r24, 0x02	; 2
- 37a:	28 f0       	brcs	.+10     	; 0x386 <ballLogicSM+0x13e>
- 37c:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 380:	96 30       	cpi	r25, 0x06	; 6
- 382:	08 f4       	brcc	.+2      	; 0x386 <ballLogicSM+0x13e>
- 384:	c1 c0       	rjmp	.+386    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
+ 384:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 388:	82 30       	cpi	r24, 0x02	; 2
+ 38a:	28 f0       	brcs	.+10     	; 0x396 <ballLogicSM+0x14e>
+ 38c:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 390:	96 30       	cpi	r25, 0x06	; 6
+ 392:	08 f4       	brcc	.+2      	; 0x396 <ballLogicSM+0x14e>
+ 394:	c1 c0       	rjmp	.+386    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
 		{
 			ballLogicSM_state = ball_downright;
 			}else if (xPOS>6){
- 386:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 38a:	97 30       	cpi	r25, 0x07	; 7
- 38c:	20 f0       	brcs	.+8      	; 0x396 <ballLogicSM+0x14e>
+ 396:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 39a:	97 30       	cpi	r25, 0x07	; 7
+ 39c:	20 f0       	brcs	.+8      	; 0x3a6 <ballLogicSM+0x15e>
 				ballLogicSM_state = player1win;
- 38e:	88 e0       	ldi	r24, 0x08	; 8
- 390:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 394:	dd c0       	rjmp	.+442    	; 0x550 <__LOCK_REGION_LENGTH__+0x150>
+ 39e:	88 e0       	ldi	r24, 0x08	; 8
+ 3a0:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 3a4:	dd c0       	rjmp	.+442    	; 0x560 <__LOCK_REGION_LENGTH__+0x160>
 			} else {
 				if (xPOS!=6)
- 396:	96 30       	cpi	r25, 0x06	; 6
- 398:	21 f0       	breq	.+8      	; 0x3a2 <ballLogicSM+0x15a>
+ 3a6:	96 30       	cpi	r25, 0x06	; 6
+ 3a8:	21 f0       	breq	.+8      	; 0x3b2 <ballLogicSM+0x16a>
 				{
 					ballLogicSM_state = ball_upright;
- 39a:	86 e0       	ldi	r24, 0x06	; 6
- 39c:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 3a0:	a7 c0       	rjmp	.+334    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 3aa:	86 e0       	ldi	r24, 0x06	; 6
+ 3ac:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 3b0:	a7 c0       	rjmp	.+334    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 				}else if (paddle2POS==yPOS>>2) // top hit
- 3a2:	90 91 18 01 	lds	r25, 0x0118	; 0x800118 <paddle2POS>
- 3a6:	28 2f       	mov	r18, r24
- 3a8:	26 95       	lsr	r18
- 3aa:	26 95       	lsr	r18
- 3ac:	29 13       	cpse	r18, r25
- 3ae:	04 c0       	rjmp	.+8      	; 0x3b8 <ballLogicSM+0x170>
-				{
-					ballLogicSM_state = ball_downleft;
- 3b0:	85 e0       	ldi	r24, 0x05	; 5
- 3b2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 3b6:	b4 c0       	rjmp	.+360    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
-				}else if (paddle2POS==yPOS>>1) // middle hit
- 3b8:	28 2f       	mov	r18, r24
+ 3b2:	90 91 18 01 	lds	r25, 0x0118	; 0x800118 <paddle2POS>
+ 3b6:	28 2f       	mov	r18, r24
+ 3b8:	26 95       	lsr	r18
  3ba:	26 95       	lsr	r18
- 3bc:	92 13       	cpse	r25, r18
+ 3bc:	29 13       	cpse	r18, r25
  3be:	04 c0       	rjmp	.+8      	; 0x3c8 <ballLogicSM+0x180>
 				{
-					ballLogicSM_state = ball_upleft;
- 3c0:	84 e0       	ldi	r24, 0x04	; 4
+					ballLogicSM_state = ball_downleft;
+ 3c0:	85 e0       	ldi	r24, 0x05	; 5
  3c2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 3c6:	b8 c0       	rjmp	.+368    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
-				}else if (paddle2POS==yPOS) // bottom hit
- 3c8:	89 13       	cpse	r24, r25
- 3ca:	9e c0       	rjmp	.+316    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
+ 3c6:	b4 c0       	rjmp	.+360    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
+				}else if (paddle2POS==yPOS>>1) // middle hit
+ 3c8:	28 2f       	mov	r18, r24
+ 3ca:	26 95       	lsr	r18
+ 3cc:	92 13       	cpse	r25, r18
+ 3ce:	04 c0       	rjmp	.+8      	; 0x3d8 <ballLogicSM+0x190>
 				{
 					ballLogicSM_state = ball_upleft;
- 3cc:	84 e0       	ldi	r24, 0x04	; 4
- 3ce:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 3d2:	b2 c0       	rjmp	.+356    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 3d0:	84 e0       	ldi	r24, 0x04	; 4
+ 3d2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 3d6:	b8 c0       	rjmp	.+368    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
+				}else if (paddle2POS==yPOS) // bottom hit
+ 3d8:	89 13       	cpse	r24, r25
+ 3da:	9e c0       	rjmp	.+316    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
+				{
+					ballLogicSM_state = ball_upleft;
+ 3dc:	84 e0       	ldi	r24, 0x04	; 4
+ 3de:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 3e2:	b2 c0       	rjmp	.+356    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 				}
 			
 		}
 		break;
 		case  ball_downleft:
 		if (yPOS>1 && xPOS>1)
- 3d4:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 3d8:	82 30       	cpi	r24, 0x02	; 2
- 3da:	28 f0       	brcs	.+10     	; 0x3e6 <ballLogicSM+0x19e>
- 3dc:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 3e0:	92 30       	cpi	r25, 0x02	; 2
- 3e2:	08 f0       	brcs	.+2      	; 0x3e6 <ballLogicSM+0x19e>
- 3e4:	9d c0       	rjmp	.+314    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
+ 3e4:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 3e8:	82 30       	cpi	r24, 0x02	; 2
+ 3ea:	28 f0       	brcs	.+10     	; 0x3f6 <ballLogicSM+0x1ae>
+ 3ec:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 3f0:	92 30       	cpi	r25, 0x02	; 2
+ 3f2:	08 f0       	brcs	.+2      	; 0x3f6 <ballLogicSM+0x1ae>
+ 3f4:	9d c0       	rjmp	.+314    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
 		{
 			ballLogicSM_state = ball_downleft;
 			
 		}else if (xPOS<1)
- 3e6:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 3ea:	91 11       	cpse	r25, r1
- 3ec:	04 c0       	rjmp	.+8      	; 0x3f6 <ballLogicSM+0x1ae>
+ 3f6:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 3fa:	91 11       	cpse	r25, r1
+ 3fc:	04 c0       	rjmp	.+8      	; 0x406 <__LOCK_REGION_LENGTH__+0x6>
 		{
 			ballLogicSM_state = player2win;
- 3ee:	89 e0       	ldi	r24, 0x09	; 9
- 3f0:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 3f4:	af c0       	rjmp	.+350    	; 0x554 <__LOCK_REGION_LENGTH__+0x154>
+ 3fe:	89 e0       	ldi	r24, 0x09	; 9
+ 400:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 404:	af c0       	rjmp	.+350    	; 0x564 <__LOCK_REGION_LENGTH__+0x164>
 		}else 
 		{
 			if(xPOS!=1){
- 3f6:	91 30       	cpi	r25, 0x01	; 1
- 3f8:	21 f0       	breq	.+8      	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 406:	91 30       	cpi	r25, 0x01	; 1
+ 408:	21 f0       	breq	.+8      	; 0x412 <__LOCK_REGION_LENGTH__+0x12>
 				ballLogicSM_state = ball_upleft;
- 3fa:	84 e0       	ldi	r24, 0x04	; 4
- 3fc:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 400:	9b c0       	rjmp	.+310    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 40a:	84 e0       	ldi	r24, 0x04	; 4
+ 40c:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 410:	9b c0       	rjmp	.+310    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 			} else if (paddle1POS==yPOS>>2) // top hit
- 402:	90 91 17 01 	lds	r25, 0x0117	; 0x800117 <paddle1POS>
- 406:	28 2f       	mov	r18, r24
- 408:	26 95       	lsr	r18
- 40a:	26 95       	lsr	r18
- 40c:	29 13       	cpse	r18, r25
- 40e:	04 c0       	rjmp	.+8      	; 0x418 <__LOCK_REGION_LENGTH__+0x18>
-			{
-				ballLogicSM_state = ball_downright;
- 410:	87 e0       	ldi	r24, 0x07	; 7
- 412:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 416:	78 c0       	rjmp	.+240    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
-			}else if (paddle1POS==yPOS>>1) // middle hit
- 418:	28 2f       	mov	r18, r24
+ 412:	90 91 17 01 	lds	r25, 0x0117	; 0x800117 <paddle1POS>
+ 416:	28 2f       	mov	r18, r24
+ 418:	26 95       	lsr	r18
  41a:	26 95       	lsr	r18
- 41c:	92 13       	cpse	r25, r18
+ 41c:	29 13       	cpse	r18, r25
  41e:	04 c0       	rjmp	.+8      	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
 			{
-				ballLogicSM_state = ball_upright;
- 420:	86 e0       	ldi	r24, 0x06	; 6
+				ballLogicSM_state = ball_downright;
+ 420:	87 e0       	ldi	r24, 0x07	; 7
  422:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 426:	64 c0       	rjmp	.+200    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
-			}else if (paddle1POS==yPOS) // bottom hit
- 428:	89 13       	cpse	r24, r25
- 42a:	7a c0       	rjmp	.+244    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
+ 426:	78 c0       	rjmp	.+240    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
+			}else if (paddle1POS==yPOS>>1) // middle hit
+ 428:	28 2f       	mov	r18, r24
+ 42a:	26 95       	lsr	r18
+ 42c:	92 13       	cpse	r25, r18
+ 42e:	04 c0       	rjmp	.+8      	; 0x438 <__LOCK_REGION_LENGTH__+0x38>
 			{
 				ballLogicSM_state = ball_upright;
- 42c:	86 e0       	ldi	r24, 0x06	; 6
- 42e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 432:	5e c0       	rjmp	.+188    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 430:	86 e0       	ldi	r24, 0x06	; 6
+ 432:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 436:	64 c0       	rjmp	.+200    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
+			}else if (paddle1POS==yPOS) // bottom hit
+ 438:	89 13       	cpse	r24, r25
+ 43a:	7a c0       	rjmp	.+244    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
+			{
+				ballLogicSM_state = ball_upright;
+ 43c:	86 e0       	ldi	r24, 0x06	; 6
+ 43e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 442:	5e c0       	rjmp	.+188    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 			
 		}
 		break;
 		
 		case ball_upleft:
 		if (yPOS<128 && xPOS>1)
- 434:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 438:	88 23       	and	r24, r24
- 43a:	2c f0       	brlt	.+10     	; 0x446 <__LOCK_REGION_LENGTH__+0x46>
- 43c:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 440:	92 30       	cpi	r25, 0x02	; 2
- 442:	08 f0       	brcs	.+2      	; 0x446 <__LOCK_REGION_LENGTH__+0x46>
- 444:	79 c0       	rjmp	.+242    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 444:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 448:	88 23       	and	r24, r24
+ 44a:	2c f0       	brlt	.+10     	; 0x456 <__LOCK_REGION_LENGTH__+0x56>
+ 44c:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 450:	92 30       	cpi	r25, 0x02	; 2
+ 452:	08 f0       	brcs	.+2      	; 0x456 <__LOCK_REGION_LENGTH__+0x56>
+ 454:	79 c0       	rjmp	.+242    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 		{
 			ballLogicSM_state = ball_upleft;
 		}else if (xPOS<1)
- 446:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
- 44a:	91 11       	cpse	r25, r1
- 44c:	04 c0       	rjmp	.+8      	; 0x456 <__LOCK_REGION_LENGTH__+0x56>
+ 456:	90 91 1b 01 	lds	r25, 0x011B	; 0x80011b <xPOS>
+ 45a:	91 11       	cpse	r25, r1
+ 45c:	04 c0       	rjmp	.+8      	; 0x466 <__LOCK_REGION_LENGTH__+0x66>
 		{
 			ballLogicSM_state = player2win;
- 44e:	89 e0       	ldi	r24, 0x09	; 9
- 450:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 454:	7f c0       	rjmp	.+254    	; 0x554 <__LOCK_REGION_LENGTH__+0x154>
+ 45e:	89 e0       	ldi	r24, 0x09	; 9
+ 460:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 464:	7f c0       	rjmp	.+254    	; 0x564 <__LOCK_REGION_LENGTH__+0x164>
 		}else {
 			if (xPOS!=1)
- 456:	91 30       	cpi	r25, 0x01	; 1
- 458:	21 f0       	breq	.+8      	; 0x462 <__LOCK_REGION_LENGTH__+0x62>
+ 466:	91 30       	cpi	r25, 0x01	; 1
+ 468:	21 f0       	breq	.+8      	; 0x472 <__LOCK_REGION_LENGTH__+0x72>
 			{
 				ballLogicSM_state = ball_downleft;
- 45a:	85 e0       	ldi	r24, 0x05	; 5
- 45c:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 460:	5f c0       	rjmp	.+190    	; 0x520 <__LOCK_REGION_LENGTH__+0x120>
+ 46a:	85 e0       	ldi	r24, 0x05	; 5
+ 46c:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 470:	5f c0       	rjmp	.+190    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
 			}else if (paddle1POS==yPOS<<2) // bottom hit
- 462:	90 91 17 01 	lds	r25, 0x0117	; 0x800117 <paddle1POS>
- 466:	49 2f       	mov	r20, r25
- 468:	50 e0       	ldi	r21, 0x00	; 0
- 46a:	28 2f       	mov	r18, r24
- 46c:	30 e0       	ldi	r19, 0x00	; 0
- 46e:	b9 01       	movw	r22, r18
- 470:	66 0f       	add	r22, r22
- 472:	77 1f       	adc	r23, r23
- 474:	66 0f       	add	r22, r22
- 476:	77 1f       	adc	r23, r23
- 478:	46 17       	cp	r20, r22
- 47a:	57 07       	cpc	r21, r23
- 47c:	21 f4       	brne	.+8      	; 0x486 <__LOCK_REGION_LENGTH__+0x86>
+ 472:	90 91 17 01 	lds	r25, 0x0117	; 0x800117 <paddle1POS>
+ 476:	49 2f       	mov	r20, r25
+ 478:	50 e0       	ldi	r21, 0x00	; 0
+ 47a:	28 2f       	mov	r18, r24
+ 47c:	30 e0       	ldi	r19, 0x00	; 0
+ 47e:	b9 01       	movw	r22, r18
+ 480:	66 0f       	add	r22, r22
+ 482:	77 1f       	adc	r23, r23
+ 484:	66 0f       	add	r22, r22
+ 486:	77 1f       	adc	r23, r23
+ 488:	46 17       	cp	r20, r22
+ 48a:	57 07       	cpc	r21, r23
+ 48c:	21 f4       	brne	.+8      	; 0x496 <__LOCK_REGION_LENGTH__+0x96>
 				{
 					ballLogicSM_state = ball_upright;
- 47e:	86 e0       	ldi	r24, 0x06	; 6
- 480:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 484:	35 c0       	rjmp	.+106    	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 48e:	86 e0       	ldi	r24, 0x06	; 6
+ 490:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 494:	35 c0       	rjmp	.+106    	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 				}else if (paddle1POS==yPOS<<1) // middle hit
- 486:	22 0f       	add	r18, r18
- 488:	33 1f       	adc	r19, r19
- 48a:	42 17       	cp	r20, r18
- 48c:	53 07       	cpc	r21, r19
- 48e:	21 f4       	brne	.+8      	; 0x498 <__LOCK_REGION_LENGTH__+0x98>
+ 496:	22 0f       	add	r18, r18
+ 498:	33 1f       	adc	r19, r19
+ 49a:	42 17       	cp	r20, r18
+ 49c:	53 07       	cpc	r21, r19
+ 49e:	21 f4       	brne	.+8      	; 0x4a8 <__LOCK_REGION_LENGTH__+0xa8>
 				{
 					ballLogicSM_state = ball_downright;
- 490:	87 e0       	ldi	r24, 0x07	; 7
- 492:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 496:	38 c0       	rjmp	.+112    	; 0x508 <__LOCK_REGION_LENGTH__+0x108>
+ 4a0:	87 e0       	ldi	r24, 0x07	; 7
+ 4a2:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 4a6:	38 c0       	rjmp	.+112    	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
 				}else if (paddle1POS==yPOS) // top hit
- 498:	89 13       	cpse	r24, r25
- 49a:	4e c0       	rjmp	.+156    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+ 4a8:	89 13       	cpse	r24, r25
+ 4aa:	4e c0       	rjmp	.+156    	; 0x548 <__LOCK_REGION_LENGTH__+0x148>
 				{
 					ballLogicSM_state = ball_upright;
- 49c:	86 e0       	ldi	r24, 0x06	; 6
- 49e:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
- 4a2:	26 c0       	rjmp	.+76     	; 0x4f0 <__LOCK_REGION_LENGTH__+0xf0>
+ 4ac:	86 e0       	ldi	r24, 0x06	; 6
+ 4ae:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <ballLogicSM_state>
+ 4b2:	26 c0       	rjmp	.+76     	; 0x500 <__LOCK_REGION_LENGTH__+0x100>
 		ballLogicSM_state = player2win;
 		break;
 	}
 		
 	
 	switch (ballLogicSM_state){
- 4a4:	8e 2f       	mov	r24, r30
- 4a6:	90 e0       	ldi	r25, 0x00	; 0
- 4a8:	8a 30       	cpi	r24, 0x0A	; 10
- 4aa:	91 05       	cpc	r25, r1
- 4ac:	08 f0       	brcs	.+2      	; 0x4b0 <__LOCK_REGION_LENGTH__+0xb0>
- 4ae:	53 c0       	rjmp	.+166    	; 0x556 <__LOCK_REGION_LENGTH__+0x156>
- 4b0:	fc 01       	movw	r30, r24
- 4b2:	e0 5b       	subi	r30, 0xB0	; 176
- 4b4:	ff 4f       	sbci	r31, 0xFF	; 255
- 4b6:	a8 c1       	rjmp	.+848    	; 0x808 <__tablejump2__>
+ 4b4:	8e 2f       	mov	r24, r30
+ 4b6:	90 e0       	ldi	r25, 0x00	; 0
+ 4b8:	8a 30       	cpi	r24, 0x0A	; 10
+ 4ba:	91 05       	cpc	r25, r1
+ 4bc:	08 f0       	brcs	.+2      	; 0x4c0 <__LOCK_REGION_LENGTH__+0xc0>
+ 4be:	53 c0       	rjmp	.+166    	; 0x566 <__LOCK_REGION_LENGTH__+0x166>
+ 4c0:	fc 01       	movw	r30, r24
+ 4c2:	e0 5b       	subi	r30, 0xB0	; 176
+ 4c4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4c6:	a8 c1       	rjmp	.+848    	; 0x818 <__tablejump2__>
 		case ball_init:
 		xPOS = 3;
- 4b8:	83 e0       	ldi	r24, 0x03	; 3
- 4ba:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 4c8:	83 e0       	ldi	r24, 0x03	; 3
+ 4ca:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS = 16;
- 4be:	80 e1       	ldi	r24, 0x10	; 16
- 4c0:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 4ce:	80 e1       	ldi	r24, 0x10	; 16
+ 4d0:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 4c4:	86 ce       	rjmp	.-756    	; 0x1d2 <ballPOS_update>
+ 4d4:	7e ce       	rjmp	.-772    	; 0x1d2 <ballPOS_update>
 		break;
- 4c6:	08 95       	ret
+ 4d6:	08 95       	ret
 		case  ball_wait:
 		break;
 		case ball_left:
 		xPOS --;
- 4c8:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 4cc:	81 50       	subi	r24, 0x01	; 1
- 4ce:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 4d8:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 4dc:	81 50       	subi	r24, 0x01	; 1
+ 4de:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS = 16;
- 4d2:	80 e1       	ldi	r24, 0x10	; 16
- 4d4:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 4e2:	80 e1       	ldi	r24, 0x10	; 16
+ 4e4:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 4d8:	7c ce       	rjmp	.-776    	; 0x1d2 <ballPOS_update>
+ 4e8:	74 ce       	rjmp	.-792    	; 0x1d2 <ballPOS_update>
 		break;
- 4da:	08 95       	ret
+ 4ea:	08 95       	ret
 		case ball_right:
 		xPOS ++;
- 4dc:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 4e0:	8f 5f       	subi	r24, 0xFF	; 255
- 4e2:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 4ec:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 4f0:	8f 5f       	subi	r24, 0xFF	; 255
+ 4f2:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS = 16;
- 4e6:	80 e1       	ldi	r24, 0x10	; 16
- 4e8:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 4f6:	80 e1       	ldi	r24, 0x10	; 16
+ 4f8:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 4ec:	72 ce       	rjmp	.-796    	; 0x1d2 <ballPOS_update>
+ 4fc:	6a ce       	rjmp	.-812    	; 0x1d2 <ballPOS_update>
 		break;
- 4ee:	08 95       	ret
+ 4fe:	08 95       	ret
 		case ball_upright:
 		xPOS ++;
- 4f0:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 4f4:	8f 5f       	subi	r24, 0xFF	; 255
- 4f6:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 500:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 504:	8f 5f       	subi	r24, 0xFF	; 255
+ 506:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS =yPOS*2;
- 4fa:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 4fe:	88 0f       	add	r24, r24
- 500:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 50a:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 50e:	88 0f       	add	r24, r24
+ 510:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 504:	66 ce       	rjmp	.-820    	; 0x1d2 <ballPOS_update>
+ 514:	5e ce       	rjmp	.-836    	; 0x1d2 <ballPOS_update>
 		break;
- 506:	08 95       	ret
+ 516:	08 95       	ret
 		case ball_downright:
 		xPOS ++;
- 508:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 50c:	8f 5f       	subi	r24, 0xFF	; 255
- 50e:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 518:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 51c:	8f 5f       	subi	r24, 0xFF	; 255
+ 51e:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS =yPOS/2;
- 512:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 516:	86 95       	lsr	r24
- 518:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 522:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 526:	86 95       	lsr	r24
+ 528:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 51c:	5a ce       	rjmp	.-844    	; 0x1d2 <ballPOS_update>
+ 52c:	52 ce       	rjmp	.-860    	; 0x1d2 <ballPOS_update>
 		break;
- 51e:	08 95       	ret
+ 52e:	08 95       	ret
 		case ball_downleft:
 		xPOS --;
- 520:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 524:	81 50       	subi	r24, 0x01	; 1
- 526:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 530:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 534:	81 50       	subi	r24, 0x01	; 1
+ 536:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS =yPOS/2;
- 52a:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 52e:	86 95       	lsr	r24
- 530:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 53a:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 53e:	86 95       	lsr	r24
+ 540:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 534:	4e ce       	rjmp	.-868    	; 0x1d2 <ballPOS_update>
+ 544:	46 ce       	rjmp	.-884    	; 0x1d2 <ballPOS_update>
 		break;
- 536:	08 95       	ret
+ 546:	08 95       	ret
 		case ball_upleft:
 		xPOS --;
- 538:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
- 53c:	81 50       	subi	r24, 0x01	; 1
- 53e:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
+ 548:	80 91 1b 01 	lds	r24, 0x011B	; 0x80011b <xPOS>
+ 54c:	81 50       	subi	r24, 0x01	; 1
+ 54e:	80 93 1b 01 	sts	0x011B, r24	; 0x80011b <xPOS>
 		yPOS =yPOS*2;
- 542:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
- 546:	88 0f       	add	r24, r24
- 548:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 552:	80 91 13 01 	lds	r24, 0x0113	; 0x800113 <yPOS>
+ 556:	88 0f       	add	r24, r24
+ 558:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 		ballPOS_update();
- 54c:	42 ce       	rjmp	.-892    	; 0x1d2 <ballPOS_update>
+ 55c:	3a ce       	rjmp	.-908    	; 0x1d2 <ballPOS_update>
 		break;
- 54e:	08 95       	ret
+ 55e:	08 95       	ret
 		case player1win:
 		LED1_HIGH();
- 550:	2b 9a       	sbi	0x05, 3	; 5
+ 560:	2b 9a       	sbi	0x05, 3	; 5
 		break;
- 552:	08 95       	ret
+ 562:	08 95       	ret
 		case player2win:
 		LED2_HIGH();
- 554:	2c 9a       	sbi	0x05, 4	; 5
- 556:	08 95       	ret
+ 564:	2c 9a       	sbi	0x05, 4	; 5
+ 566:	08 95       	ret
 
-00000558 <ioSetup>:
-	*/
+00000568 <ioSetup>:
+	
 	
 }
 
 void ioSetup() {
 	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2) | (1<<DDB3) | (1<<DDB4); 
- 558:	84 b1       	in	r24, 0x04	; 4
- 55a:	8f 61       	ori	r24, 0x1F	; 31
- 55c:	84 b9       	out	0x04, r24	; 4
+ 568:	84 b1       	in	r24, 0x04	; 4
+ 56a:	8f 61       	ori	r24, 0x1F	; 31
+ 56c:	84 b9       	out	0x04, r24	; 4
 	 //PORTB as output
 	
 	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3) | (1<<DDA4); 
- 55e:	81 b1       	in	r24, 0x01	; 1
- 560:	8f 61       	ori	r24, 0x1F	; 31
- 562:	81 b9       	out	0x01, r24	; 1
- 564:	08 95       	ret
+ 56e:	81 b1       	in	r24, 0x01	; 1
+ 570:	8f 61       	ori	r24, 0x1F	; 31
+ 572:	81 b9       	out	0x01, r24	; 1
+ 574:	08 95       	ret
 
-00000566 <paddle1SM>:
+00000576 <paddle1SM>:
 	 //PORTA as input
 	
 }
 void paddle1SM(){
 	switch (paddle1SM_state){
- 566:	80 91 11 01 	lds	r24, 0x0111	; 0x800111 <paddle1SM_state>
- 56a:	82 30       	cpi	r24, 0x02	; 2
- 56c:	59 f1       	breq	.+86     	; 0x5c4 <paddle1SM+0x5e>
- 56e:	28 f4       	brcc	.+10     	; 0x57a <paddle1SM+0x14>
- 570:	88 23       	and	r24, r24
- 572:	41 f0       	breq	.+16     	; 0x584 <paddle1SM+0x1e>
- 574:	81 30       	cpi	r24, 0x01	; 1
- 576:	d1 f0       	breq	.+52     	; 0x5ac <paddle1SM+0x46>
- 578:	37 c0       	rjmp	.+110    	; 0x5e8 <paddle1SM+0x82>
- 57a:	83 30       	cpi	r24, 0x03	; 3
- 57c:	31 f1       	breq	.+76     	; 0x5ca <paddle1SM+0x64>
- 57e:	84 30       	cpi	r24, 0x04	; 4
- 580:	81 f1       	breq	.+96     	; 0x5e2 <paddle1SM+0x7c>
- 582:	32 c0       	rjmp	.+100    	; 0x5e8 <paddle1SM+0x82>
+ 576:	80 91 11 01 	lds	r24, 0x0111	; 0x800111 <paddle1SM_state>
+ 57a:	82 30       	cpi	r24, 0x02	; 2
+ 57c:	59 f1       	breq	.+86     	; 0x5d4 <paddle1SM+0x5e>
+ 57e:	28 f4       	brcc	.+10     	; 0x58a <paddle1SM+0x14>
+ 580:	88 23       	and	r24, r24
+ 582:	41 f0       	breq	.+16     	; 0x594 <paddle1SM+0x1e>
+ 584:	81 30       	cpi	r24, 0x01	; 1
+ 586:	d1 f0       	breq	.+52     	; 0x5bc <paddle1SM+0x46>
+ 588:	37 c0       	rjmp	.+110    	; 0x5f8 <paddle1SM+0x82>
+ 58a:	83 30       	cpi	r24, 0x03	; 3
+ 58c:	31 f1       	breq	.+76     	; 0x5da <paddle1SM+0x64>
+ 58e:	84 30       	cpi	r24, 0x04	; 4
+ 590:	81 f1       	breq	.+96     	; 0x5f2 <paddle1SM+0x7c>
+ 592:	32 c0       	rjmp	.+100    	; 0x5f8 <paddle1SM+0x82>
 		case paddle1SM_wait:
 		if (!up1 && !down1)
- 584:	00 99       	sbic	0x00, 0	; 0
- 586:	02 c0       	rjmp	.+4      	; 0x58c <paddle1SM+0x26>
- 588:	01 9b       	sbis	0x00, 1	; 0
- 58a:	4c c0       	rjmp	.+152    	; 0x624 <paddle1SM+0xbe>
+ 594:	00 99       	sbic	0x00, 0	; 0
+ 596:	02 c0       	rjmp	.+4      	; 0x59c <paddle1SM+0x26>
+ 598:	01 9b       	sbis	0x00, 1	; 0
+ 59a:	4c c0       	rjmp	.+152    	; 0x634 <paddle1SM+0xbe>
 		{
 			paddle1SM_state = paddle1SM_wait;
 		}else if (up1 && !down1)
- 58c:	00 9b       	sbis	0x00, 0	; 0
- 58e:	06 c0       	rjmp	.+12     	; 0x59c <paddle1SM+0x36>
- 590:	01 99       	sbic	0x00, 1	; 0
- 592:	04 c0       	rjmp	.+8      	; 0x59c <paddle1SM+0x36>
+ 59c:	00 9b       	sbis	0x00, 0	; 0
+ 59e:	06 c0       	rjmp	.+12     	; 0x5ac <paddle1SM+0x36>
+ 5a0:	01 99       	sbic	0x00, 1	; 0
+ 5a2:	04 c0       	rjmp	.+8      	; 0x5ac <paddle1SM+0x36>
 		{
 			paddle1SM_state = up1_press;
- 594:	81 e0       	ldi	r24, 0x01	; 1
- 596:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
- 59a:	08 95       	ret
-		
-		}else if (down1 && !up1)
- 59c:	01 9b       	sbis	0x00, 1	; 0
- 59e:	42 c0       	rjmp	.+132    	; 0x624 <paddle1SM+0xbe>
- 5a0:	00 99       	sbic	0x00, 0	; 0
- 5a2:	40 c0       	rjmp	.+128    	; 0x624 <paddle1SM+0xbe>
-		{
-			paddle1SM_state = down1_press;
- 5a4:	83 e0       	ldi	r24, 0x03	; 3
+ 5a4:	81 e0       	ldi	r24, 0x01	; 1
  5a6:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
  5aa:	08 95       	ret
+		
+		}else if (down1 && !up1)
+ 5ac:	01 9b       	sbis	0x00, 1	; 0
+ 5ae:	42 c0       	rjmp	.+132    	; 0x634 <paddle1SM+0xbe>
+ 5b0:	00 99       	sbic	0x00, 0	; 0
+ 5b2:	40 c0       	rjmp	.+128    	; 0x634 <paddle1SM+0xbe>
+		{
+			paddle1SM_state = down1_press;
+ 5b4:	83 e0       	ldi	r24, 0x03	; 3
+ 5b6:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
+ 5ba:	08 95       	ret
 		}
 		break;
 		
 		case  up1_press:
 		if (up1 && !down1)
- 5ac:	00 9b       	sbis	0x00, 0	; 0
- 5ae:	02 c0       	rjmp	.+4      	; 0x5b4 <paddle1SM+0x4e>
- 5b0:	01 9b       	sbis	0x00, 1	; 0
- 5b2:	38 c0       	rjmp	.+112    	; 0x624 <paddle1SM+0xbe>
+ 5bc:	00 9b       	sbis	0x00, 0	; 0
+ 5be:	02 c0       	rjmp	.+4      	; 0x5c4 <paddle1SM+0x4e>
+ 5c0:	01 9b       	sbis	0x00, 1	; 0
+ 5c2:	38 c0       	rjmp	.+112    	; 0x634 <paddle1SM+0xbe>
 		{
 			paddle1SM_state = up1_press;
 		}else if (!up1 && !down1)
- 5b4:	00 99       	sbic	0x00, 0	; 0
- 5b6:	36 c0       	rjmp	.+108    	; 0x624 <paddle1SM+0xbe>
- 5b8:	01 99       	sbic	0x00, 1	; 0
- 5ba:	34 c0       	rjmp	.+104    	; 0x624 <paddle1SM+0xbe>
+ 5c4:	00 99       	sbic	0x00, 0	; 0
+ 5c6:	36 c0       	rjmp	.+108    	; 0x634 <paddle1SM+0xbe>
+ 5c8:	01 99       	sbic	0x00, 1	; 0
+ 5ca:	34 c0       	rjmp	.+104    	; 0x634 <paddle1SM+0xbe>
 		{
 			paddle1SM_state = up1_release;
- 5bc:	82 e0       	ldi	r24, 0x02	; 2
- 5be:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
- 5c2:	17 c0       	rjmp	.+46     	; 0x5f2 <paddle1SM+0x8c>
+ 5cc:	82 e0       	ldi	r24, 0x02	; 2
+ 5ce:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
+ 5d2:	17 c0       	rjmp	.+46     	; 0x602 <paddle1SM+0x8c>
 		}
 		break;
 		
 		case up1_release:
 			paddle1SM_state = paddle1SM_wait;
- 5c4:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
+ 5d4:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
 			break;
- 5c8:	08 95       	ret
+ 5d8:	08 95       	ret
 		
 		case down1_press:
 		if (down1 && !up1)
- 5ca:	01 9b       	sbis	0x00, 1	; 0
- 5cc:	02 c0       	rjmp	.+4      	; 0x5d2 <paddle1SM+0x6c>
- 5ce:	00 9b       	sbis	0x00, 0	; 0
- 5d0:	29 c0       	rjmp	.+82     	; 0x624 <paddle1SM+0xbe>
+ 5da:	01 9b       	sbis	0x00, 1	; 0
+ 5dc:	02 c0       	rjmp	.+4      	; 0x5e2 <paddle1SM+0x6c>
+ 5de:	00 9b       	sbis	0x00, 0	; 0
+ 5e0:	29 c0       	rjmp	.+82     	; 0x634 <paddle1SM+0xbe>
 		{
 			paddle1SM_state = down1_press;
 		}else if (!down1 && !up1)
- 5d2:	01 99       	sbic	0x00, 1	; 0
- 5d4:	27 c0       	rjmp	.+78     	; 0x624 <paddle1SM+0xbe>
- 5d6:	00 99       	sbic	0x00, 0	; 0
- 5d8:	25 c0       	rjmp	.+74     	; 0x624 <paddle1SM+0xbe>
+ 5e2:	01 99       	sbic	0x00, 1	; 0
+ 5e4:	27 c0       	rjmp	.+78     	; 0x634 <paddle1SM+0xbe>
+ 5e6:	00 99       	sbic	0x00, 0	; 0
+ 5e8:	25 c0       	rjmp	.+74     	; 0x634 <paddle1SM+0xbe>
 		{
 			paddle1SM_state = down1_release;
- 5da:	84 e0       	ldi	r24, 0x04	; 4
- 5dc:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
- 5e0:	15 c0       	rjmp	.+42     	; 0x60c <paddle1SM+0xa6>
+ 5ea:	84 e0       	ldi	r24, 0x04	; 4
+ 5ec:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <paddle1SM_state>
+ 5f0:	15 c0       	rjmp	.+42     	; 0x61c <paddle1SM+0xa6>
 		}
 		break;
 		
 		case  down1_release:
 		paddle1SM_state = paddle1SM_wait;
- 5e2:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
+ 5f2:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
 		break;
- 5e6:	08 95       	ret
+ 5f6:	08 95       	ret
 		
 		
 	}
 switch (paddle1SM_state){ //actions
- 5e8:	82 30       	cpi	r24, 0x02	; 2
- 5ea:	19 f0       	breq	.+6      	; 0x5f2 <paddle1SM+0x8c>
- 5ec:	84 30       	cpi	r24, 0x04	; 4
- 5ee:	71 f0       	breq	.+28     	; 0x60c <paddle1SM+0xa6>
- 5f0:	08 95       	ret
+ 5f8:	82 30       	cpi	r24, 0x02	; 2
+ 5fa:	19 f0       	breq	.+6      	; 0x602 <paddle1SM+0x8c>
+ 5fc:	84 30       	cpi	r24, 0x04	; 4
+ 5fe:	71 f0       	breq	.+28     	; 0x61c <paddle1SM+0xa6>
+ 600:	08 95       	ret
 		
 		case  up1_press:
 		break;
 	
 		case up1_release://upshift
 		if (pattern[0]!=224){
- 5f2:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
- 5f6:	80 3e       	cpi	r24, 0xE0	; 224
- 5f8:	a9 f0       	breq	.+42     	; 0x624 <paddle1SM+0xbe>
+ 602:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 606:	80 3e       	cpi	r24, 0xE0	; 224
+ 608:	a9 f0       	breq	.+42     	; 0x634 <paddle1SM+0xbe>
 			pattern[0]=pattern[0]<<1;
- 5fa:	88 0f       	add	r24, r24
- 5fc:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 60a:	88 0f       	add	r24, r24
+ 60c:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
 			paddle1POS=paddle1POS<<1;
- 600:	80 91 17 01 	lds	r24, 0x0117	; 0x800117 <paddle1POS>
- 604:	88 0f       	add	r24, r24
- 606:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
- 60a:	08 95       	ret
+ 610:	80 91 17 01 	lds	r24, 0x0117	; 0x800117 <paddle1POS>
+ 614:	88 0f       	add	r24, r24
+ 616:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
+ 61a:	08 95       	ret
 	
 		case down1_press:
 		break;
 	
 		case  down1_release://downshift
 		if (pattern[0]>7){
- 60c:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
- 610:	88 30       	cpi	r24, 0x08	; 8
- 612:	40 f0       	brcs	.+16     	; 0x624 <paddle1SM+0xbe>
+ 61c:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 620:	88 30       	cpi	r24, 0x08	; 8
+ 622:	40 f0       	brcs	.+16     	; 0x634 <paddle1SM+0xbe>
 			pattern[0]=pattern[0]>>1;
- 614:	86 95       	lsr	r24
- 616:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 624:	86 95       	lsr	r24
+ 626:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
 			paddle1POS=paddle1POS>>1;
- 61a:	80 91 17 01 	lds	r24, 0x0117	; 0x800117 <paddle1POS>
- 61e:	86 95       	lsr	r24
- 620:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
- 624:	08 95       	ret
+ 62a:	80 91 17 01 	lds	r24, 0x0117	; 0x800117 <paddle1POS>
+ 62e:	86 95       	lsr	r24
+ 630:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
+ 634:	08 95       	ret
 
-00000626 <paddle2SM>:
+00000636 <paddle2SM>:
 	
 	}
 }
 
 void paddle2SM(){
 	switch (paddle2SM_state){
- 626:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <paddle2SM_state>
- 62a:	82 30       	cpi	r24, 0x02	; 2
- 62c:	59 f1       	breq	.+86     	; 0x684 <paddle2SM+0x5e>
- 62e:	28 f4       	brcc	.+10     	; 0x63a <paddle2SM+0x14>
- 630:	88 23       	and	r24, r24
- 632:	41 f0       	breq	.+16     	; 0x644 <paddle2SM+0x1e>
- 634:	81 30       	cpi	r24, 0x01	; 1
- 636:	d1 f0       	breq	.+52     	; 0x66c <paddle2SM+0x46>
- 638:	37 c0       	rjmp	.+110    	; 0x6a8 <paddle2SM+0x82>
- 63a:	83 30       	cpi	r24, 0x03	; 3
- 63c:	31 f1       	breq	.+76     	; 0x68a <paddle2SM+0x64>
- 63e:	84 30       	cpi	r24, 0x04	; 4
- 640:	81 f1       	breq	.+96     	; 0x6a2 <paddle2SM+0x7c>
- 642:	32 c0       	rjmp	.+100    	; 0x6a8 <paddle2SM+0x82>
+ 636:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <paddle2SM_state>
+ 63a:	82 30       	cpi	r24, 0x02	; 2
+ 63c:	59 f1       	breq	.+86     	; 0x694 <paddle2SM+0x5e>
+ 63e:	28 f4       	brcc	.+10     	; 0x64a <paddle2SM+0x14>
+ 640:	88 23       	and	r24, r24
+ 642:	41 f0       	breq	.+16     	; 0x654 <paddle2SM+0x1e>
+ 644:	81 30       	cpi	r24, 0x01	; 1
+ 646:	d1 f0       	breq	.+52     	; 0x67c <paddle2SM+0x46>
+ 648:	37 c0       	rjmp	.+110    	; 0x6b8 <paddle2SM+0x82>
+ 64a:	83 30       	cpi	r24, 0x03	; 3
+ 64c:	31 f1       	breq	.+76     	; 0x69a <paddle2SM+0x64>
+ 64e:	84 30       	cpi	r24, 0x04	; 4
+ 650:	81 f1       	breq	.+96     	; 0x6b2 <paddle2SM+0x7c>
+ 652:	32 c0       	rjmp	.+100    	; 0x6b8 <paddle2SM+0x82>
 		case paddle2SM_wait:
 		if (!up2 && !down2)
- 644:	02 99       	sbic	0x00, 2	; 0
- 646:	02 c0       	rjmp	.+4      	; 0x64c <paddle2SM+0x26>
- 648:	03 9b       	sbis	0x00, 3	; 0
- 64a:	4c c0       	rjmp	.+152    	; 0x6e4 <paddle2SM+0xbe>
+ 654:	02 99       	sbic	0x00, 2	; 0
+ 656:	02 c0       	rjmp	.+4      	; 0x65c <paddle2SM+0x26>
+ 658:	03 9b       	sbis	0x00, 3	; 0
+ 65a:	4c c0       	rjmp	.+152    	; 0x6f4 <paddle2SM+0xbe>
 		{
 			paddle2SM_state = paddle2SM_wait;
 		}else if (up2 && !down2)
- 64c:	02 9b       	sbis	0x00, 2	; 0
- 64e:	06 c0       	rjmp	.+12     	; 0x65c <paddle2SM+0x36>
- 650:	03 99       	sbic	0x00, 3	; 0
- 652:	04 c0       	rjmp	.+8      	; 0x65c <paddle2SM+0x36>
+ 65c:	02 9b       	sbis	0x00, 2	; 0
+ 65e:	06 c0       	rjmp	.+12     	; 0x66c <paddle2SM+0x36>
+ 660:	03 99       	sbic	0x00, 3	; 0
+ 662:	04 c0       	rjmp	.+8      	; 0x66c <paddle2SM+0x36>
 		{
 			paddle2SM_state = up2_press;
- 654:	81 e0       	ldi	r24, 0x01	; 1
- 656:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
- 65a:	08 95       	ret
-			
-		}else if (down2 && !up2)
- 65c:	03 9b       	sbis	0x00, 3	; 0
- 65e:	42 c0       	rjmp	.+132    	; 0x6e4 <paddle2SM+0xbe>
- 660:	02 99       	sbic	0x00, 2	; 0
- 662:	40 c0       	rjmp	.+128    	; 0x6e4 <paddle2SM+0xbe>
-		{
-			paddle2SM_state = down2_press;
- 664:	83 e0       	ldi	r24, 0x03	; 3
+ 664:	81 e0       	ldi	r24, 0x01	; 1
  666:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
  66a:	08 95       	ret
+			
+		}else if (down2 && !up2)
+ 66c:	03 9b       	sbis	0x00, 3	; 0
+ 66e:	42 c0       	rjmp	.+132    	; 0x6f4 <paddle2SM+0xbe>
+ 670:	02 99       	sbic	0x00, 2	; 0
+ 672:	40 c0       	rjmp	.+128    	; 0x6f4 <paddle2SM+0xbe>
+		{
+			paddle2SM_state = down2_press;
+ 674:	83 e0       	ldi	r24, 0x03	; 3
+ 676:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
+ 67a:	08 95       	ret
 		}
 		break;
 		
 		case  up2_press:
 		if (up2 && !down2)
- 66c:	02 9b       	sbis	0x00, 2	; 0
- 66e:	02 c0       	rjmp	.+4      	; 0x674 <paddle2SM+0x4e>
- 670:	03 9b       	sbis	0x00, 3	; 0
- 672:	38 c0       	rjmp	.+112    	; 0x6e4 <paddle2SM+0xbe>
+ 67c:	02 9b       	sbis	0x00, 2	; 0
+ 67e:	02 c0       	rjmp	.+4      	; 0x684 <paddle2SM+0x4e>
+ 680:	03 9b       	sbis	0x00, 3	; 0
+ 682:	38 c0       	rjmp	.+112    	; 0x6f4 <paddle2SM+0xbe>
 		{
 			paddle2SM_state = up2_press;
 		}else if (!up2 && !down2)
- 674:	02 99       	sbic	0x00, 2	; 0
- 676:	36 c0       	rjmp	.+108    	; 0x6e4 <paddle2SM+0xbe>
- 678:	03 99       	sbic	0x00, 3	; 0
- 67a:	34 c0       	rjmp	.+104    	; 0x6e4 <paddle2SM+0xbe>
+ 684:	02 99       	sbic	0x00, 2	; 0
+ 686:	36 c0       	rjmp	.+108    	; 0x6f4 <paddle2SM+0xbe>
+ 688:	03 99       	sbic	0x00, 3	; 0
+ 68a:	34 c0       	rjmp	.+104    	; 0x6f4 <paddle2SM+0xbe>
 		{
 			paddle2SM_state = up2_release;
- 67c:	82 e0       	ldi	r24, 0x02	; 2
- 67e:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
- 682:	17 c0       	rjmp	.+46     	; 0x6b2 <paddle2SM+0x8c>
+ 68c:	82 e0       	ldi	r24, 0x02	; 2
+ 68e:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
+ 692:	17 c0       	rjmp	.+46     	; 0x6c2 <paddle2SM+0x8c>
 		}
 		break;
 		
 		case up2_release:
 		paddle2SM_state = paddle2SM_wait;
- 684:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
+ 694:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
 		break;
- 688:	08 95       	ret
+ 698:	08 95       	ret
 		
 		case down2_press:
 		if (down2 && !up2)
- 68a:	03 9b       	sbis	0x00, 3	; 0
- 68c:	02 c0       	rjmp	.+4      	; 0x692 <paddle2SM+0x6c>
- 68e:	02 9b       	sbis	0x00, 2	; 0
- 690:	29 c0       	rjmp	.+82     	; 0x6e4 <paddle2SM+0xbe>
+ 69a:	03 9b       	sbis	0x00, 3	; 0
+ 69c:	02 c0       	rjmp	.+4      	; 0x6a2 <paddle2SM+0x6c>
+ 69e:	02 9b       	sbis	0x00, 2	; 0
+ 6a0:	29 c0       	rjmp	.+82     	; 0x6f4 <paddle2SM+0xbe>
 		{
 			paddle2SM_state = down2_press;
 		}else if (!down2 && !up2)
- 692:	03 99       	sbic	0x00, 3	; 0
- 694:	27 c0       	rjmp	.+78     	; 0x6e4 <paddle2SM+0xbe>
- 696:	02 99       	sbic	0x00, 2	; 0
- 698:	25 c0       	rjmp	.+74     	; 0x6e4 <paddle2SM+0xbe>
+ 6a2:	03 99       	sbic	0x00, 3	; 0
+ 6a4:	27 c0       	rjmp	.+78     	; 0x6f4 <paddle2SM+0xbe>
+ 6a6:	02 99       	sbic	0x00, 2	; 0
+ 6a8:	25 c0       	rjmp	.+74     	; 0x6f4 <paddle2SM+0xbe>
 		{
 			paddle2SM_state = down2_release;
- 69a:	84 e0       	ldi	r24, 0x04	; 4
- 69c:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
- 6a0:	15 c0       	rjmp	.+42     	; 0x6cc <paddle2SM+0xa6>
+ 6aa:	84 e0       	ldi	r24, 0x04	; 4
+ 6ac:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <paddle2SM_state>
+ 6b0:	15 c0       	rjmp	.+42     	; 0x6dc <paddle2SM+0xa6>
 		}
 		break;
 		
 		case  down2_release:
 		paddle2SM_state = paddle2SM_wait;
- 6a2:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
+ 6b2:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
 		break;
- 6a6:	08 95       	ret
+ 6b6:	08 95       	ret
 		
 		
 	}
 	switch (paddle2SM_state){ //actions
- 6a8:	82 30       	cpi	r24, 0x02	; 2
- 6aa:	19 f0       	breq	.+6      	; 0x6b2 <paddle2SM+0x8c>
- 6ac:	84 30       	cpi	r24, 0x04	; 4
- 6ae:	71 f0       	breq	.+28     	; 0x6cc <paddle2SM+0xa6>
- 6b0:	08 95       	ret
+ 6b8:	82 30       	cpi	r24, 0x02	; 2
+ 6ba:	19 f0       	breq	.+6      	; 0x6c2 <paddle2SM+0x8c>
+ 6bc:	84 30       	cpi	r24, 0x04	; 4
+ 6be:	71 f0       	breq	.+28     	; 0x6dc <paddle2SM+0xa6>
+ 6c0:	08 95       	ret
 		
 		case  up2_press:
 		break;
 		
 		case up2_release://upshift
 		if (pattern[7]!=224){
- 6b2:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
- 6b6:	80 3e       	cpi	r24, 0xE0	; 224
- 6b8:	a9 f0       	breq	.+42     	; 0x6e4 <paddle2SM+0xbe>
+ 6c2:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
+ 6c6:	80 3e       	cpi	r24, 0xE0	; 224
+ 6c8:	a9 f0       	breq	.+42     	; 0x6f4 <paddle2SM+0xbe>
 			pattern[7]=pattern[7]<<1;
- 6ba:	88 0f       	add	r24, r24
- 6bc:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
+ 6ca:	88 0f       	add	r24, r24
+ 6cc:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
 			paddle2POS=paddle2POS<<1;
- 6c0:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <paddle2POS>
- 6c4:	88 0f       	add	r24, r24
- 6c6:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
- 6ca:	08 95       	ret
+ 6d0:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <paddle2POS>
+ 6d4:	88 0f       	add	r24, r24
+ 6d6:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
+ 6da:	08 95       	ret
 		
 		case down2_press:
 		break;
 		
 		case  down2_release://downshift
 		if (pattern[7]!=7){
- 6cc:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
- 6d0:	87 30       	cpi	r24, 0x07	; 7
- 6d2:	41 f0       	breq	.+16     	; 0x6e4 <paddle2SM+0xbe>
+ 6dc:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <__data_start+0x7>
+ 6e0:	87 30       	cpi	r24, 0x07	; 7
+ 6e2:	41 f0       	breq	.+16     	; 0x6f4 <paddle2SM+0xbe>
 			pattern[7]=pattern[7]>>1;
- 6d4:	86 95       	lsr	r24
- 6d6:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
+ 6e4:	86 95       	lsr	r24
+ 6e6:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <__data_start+0x7>
 			paddle2POS=paddle2POS>>1;
- 6da:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <paddle2POS>
- 6de:	86 95       	lsr	r24
- 6e0:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
- 6e4:	08 95       	ret
+ 6ea:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <paddle2POS>
+ 6ee:	86 95       	lsr	r24
+ 6f0:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
+ 6f4:	08 95       	ret
 
-000006e6 <store_SM>:
+000006f6 <store_SM>:
 	}
 	return 0;
 }
 
 void store_SM() {
 	switch (store_state){
- 6e6:	80 91 19 01 	lds	r24, 0x0119	; 0x800119 <store_state>
- 6ea:	81 30       	cpi	r24, 0x01	; 1
- 6ec:	41 f0       	breq	.+16     	; 0x6fe <store_SM+0x18>
- 6ee:	18 f0       	brcs	.+6      	; 0x6f6 <store_SM+0x10>
- 6f0:	82 30       	cpi	r24, 0x02	; 2
- 6f2:	49 f0       	breq	.+18     	; 0x706 <store_SM+0x20>
- 6f4:	0c c0       	rjmp	.+24     	; 0x70e <store_SM+0x28>
+ 6f6:	80 91 19 01 	lds	r24, 0x0119	; 0x800119 <store_state>
+ 6fa:	81 30       	cpi	r24, 0x01	; 1
+ 6fc:	41 f0       	breq	.+16     	; 0x70e <store_SM+0x18>
+ 6fe:	18 f0       	brcs	.+6      	; 0x706 <store_SM+0x10>
+ 700:	82 30       	cpi	r24, 0x02	; 2
+ 702:	49 f0       	breq	.+18     	; 0x716 <store_SM+0x20>
+ 704:	0c c0       	rjmp	.+24     	; 0x71e <store_SM+0x28>
 		case store_init:
-		store_state = store_high;
- 6f6:	81 e0       	ldi	r24, 0x01	; 1
- 6f8:	80 93 19 01 	sts	0x0119, r24	; 0x800119 <store_state>
-		break;
- 6fc:	0d c0       	rjmp	.+26     	; 0x718 <store_SM+0x32>
-		case store_high:
-		store_state = store_low;
- 6fe:	82 e0       	ldi	r24, 0x02	; 2
- 700:	80 93 19 01 	sts	0x0119, r24	; 0x800119 <store_state>
- 704:	0b c0       	rjmp	.+22     	; 0x71c <store_SM+0x36>
-		break;
-		case  store_low:
 		store_state = store_high;
  706:	81 e0       	ldi	r24, 0x01	; 1
  708:	80 93 19 01 	sts	0x0119, r24	; 0x800119 <store_state>
 		break;
- 70c:	05 c0       	rjmp	.+10     	; 0x718 <store_SM+0x32>
+ 70c:	0d c0       	rjmp	.+26     	; 0x728 <store_SM+0x32>
+		case store_high:
+		store_state = store_low;
+ 70e:	82 e0       	ldi	r24, 0x02	; 2
+ 710:	80 93 19 01 	sts	0x0119, r24	; 0x800119 <store_state>
+ 714:	0b c0       	rjmp	.+22     	; 0x72c <store_SM+0x36>
+		break;
+		case  store_low:
+		store_state = store_high;
+ 716:	81 e0       	ldi	r24, 0x01	; 1
+ 718:	80 93 19 01 	sts	0x0119, r24	; 0x800119 <store_state>
+		break;
+ 71c:	05 c0       	rjmp	.+10     	; 0x728 <store_SM+0x32>
 		
 	}
 	switch (store_state){
- 70e:	81 30       	cpi	r24, 0x01	; 1
- 710:	19 f0       	breq	.+6      	; 0x718 <store_SM+0x32>
- 712:	82 30       	cpi	r24, 0x02	; 2
- 714:	21 f4       	brne	.+8      	; 0x71e <store_SM+0x38>
- 716:	02 c0       	rjmp	.+4      	; 0x71c <store_SM+0x36>
+ 71e:	81 30       	cpi	r24, 0x01	; 1
+ 720:	19 f0       	breq	.+6      	; 0x728 <store_SM+0x32>
+ 722:	82 30       	cpi	r24, 0x02	; 2
+ 724:	21 f4       	brne	.+8      	; 0x72e <store_SM+0x38>
+ 726:	02 c0       	rjmp	.+4      	; 0x72c <store_SM+0x36>
 		case  store_init:
 		break;
 		case store_high:
 		STORE_HIGH();
- 718:	29 9a       	sbi	0x05, 1	; 5
+ 728:	29 9a       	sbi	0x05, 1	; 5
 		break;
- 71a:	08 95       	ret
+ 72a:	08 95       	ret
 		case  store_low:
 		STORE_LOW();
- 71c:	29 98       	cbi	0x05, 1	; 5
- 71e:	08 95       	ret
+ 72c:	29 98       	cbi	0x05, 1	; 5
+ 72e:	08 95       	ret
 
-00000720 <shiftOut>:
+00000730 <shiftOut>:
 	
 //	_delay_ms(1);
 }
  
 void shiftOut(uint8_t val)
 {
- 720:	20 e0       	ldi	r18, 0x00	; 0
- 722:	30 e0       	ldi	r19, 0x00	; 0
+ 730:	20 e0       	ldi	r18, 0x00	; 0
+ 732:	30 e0       	ldi	r19, 0x00	; 0
 	uint8_t i;
 
 	for (i = 0; i < 8; i++)  {
 		 if(!!(val & (1 << i))){
- 724:	90 e0       	ldi	r25, 0x00	; 0
- 726:	ac 01       	movw	r20, r24
- 728:	02 2e       	mov	r0, r18
- 72a:	02 c0       	rjmp	.+4      	; 0x730 <shiftOut+0x10>
- 72c:	55 95       	asr	r21
- 72e:	47 95       	ror	r20
- 730:	0a 94       	dec	r0
- 732:	e2 f7       	brpl	.-8      	; 0x72c <shiftOut+0xc>
- 734:	40 ff       	sbrs	r20, 0
- 736:	02 c0       	rjmp	.+4      	; 0x73c <shiftOut+0x1c>
+ 734:	90 e0       	ldi	r25, 0x00	; 0
+ 736:	ac 01       	movw	r20, r24
+ 738:	02 2e       	mov	r0, r18
+ 73a:	02 c0       	rjmp	.+4      	; 0x740 <shiftOut+0x10>
+ 73c:	55 95       	asr	r21
+ 73e:	47 95       	ror	r20
+ 740:	0a 94       	dec	r0
+ 742:	e2 f7       	brpl	.-8      	; 0x73c <shiftOut+0xc>
+ 744:	40 ff       	sbrs	r20, 0
+ 746:	02 c0       	rjmp	.+4      	; 0x74c <shiftOut+0x1c>
 			 DATA_HIGH();
- 738:	28 9a       	sbi	0x05, 0	; 5
- 73a:	01 c0       	rjmp	.+2      	; 0x73e <shiftOut+0x1e>
+ 748:	28 9a       	sbi	0x05, 0	; 5
+ 74a:	01 c0       	rjmp	.+2      	; 0x74e <shiftOut+0x1e>
 			 }else{
 			 DATA_LOW();
- 73c:	28 98       	cbi	0x05, 0	; 5
+ 74c:	28 98       	cbi	0x05, 0	; 5
 		 }
 		SHIFT_HIGH();
- 73e:	2a 9a       	sbi	0x05, 2	; 5
+ 74e:	2a 9a       	sbi	0x05, 2	; 5
 		SHIFT_LOW();
- 740:	2a 98       	cbi	0x05, 2	; 5
- 742:	2f 5f       	subi	r18, 0xFF	; 255
- 744:	3f 4f       	sbci	r19, 0xFF	; 255
+ 750:	2a 98       	cbi	0x05, 2	; 5
+ 752:	2f 5f       	subi	r18, 0xFF	; 255
+ 754:	3f 4f       	sbci	r19, 0xFF	; 255
  
 void shiftOut(uint8_t val)
 {
 	uint8_t i;
 
 	for (i = 0; i < 8; i++)  {
- 746:	28 30       	cpi	r18, 0x08	; 8
- 748:	31 05       	cpc	r19, r1
- 74a:	69 f7       	brne	.-38     	; 0x726 <shiftOut+0x6>
+ 756:	28 30       	cpi	r18, 0x08	; 8
+ 758:	31 05       	cpc	r19, r1
+ 75a:	69 f7       	brne	.-38     	; 0x736 <shiftOut+0x6>
 			 DATA_LOW();
 		 }
 		SHIFT_HIGH();
 		SHIFT_LOW();
 	}
- 74c:	08 95       	ret
+ 75c:	08 95       	ret
 
-0000074e <main>:
+0000075e <main>:
 		
 	}
 }
 
 int main() {
 	ioSetup();
- 74e:	04 df       	rcall	.-504    	; 0x558 <ioSetup>
+ 75e:	04 df       	rcall	.-504    	; 0x568 <ioSetup>
 	
 	const unsigned long timerPeriod = 1;
 	TimerSet(timerPeriod); TimerOn();
- 750:	61 e0       	ldi	r22, 0x01	; 1
- 752:	70 e0       	ldi	r23, 0x00	; 0
- 754:	80 e0       	ldi	r24, 0x00	; 0
- 756:	90 e0       	ldi	r25, 0x00	; 0
- 758:	2b dd       	rcall	.-1450   	; 0x1b0 <TimerSet>
- 75a:	ca dc       	rcall	.-1644   	; 0xf0 <TimerOn>
+ 760:	61 e0       	ldi	r22, 0x01	; 1
+ 762:	70 e0       	ldi	r23, 0x00	; 0
+ 764:	80 e0       	ldi	r24, 0x00	; 0
+ 766:	90 e0       	ldi	r25, 0x00	; 0
+ 768:	23 dd       	rcall	.-1466   	; 0x1b0 <TimerSet>
+ 76a:	c2 dc       	rcall	.-1660   	; 0xf0 <TimerOn>
 	store_state = store_init;
- 75c:	10 92 19 01 	sts	0x0119, r1	; 0x800119 <store_state>
+ 76c:	10 92 19 01 	sts	0x0119, r1	; 0x800119 <store_state>
 	paddle1SM_state = paddle1SM_wait;
- 760:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
+ 770:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <paddle1SM_state>
 	paddle2SM_state = paddle2SM_wait;
- 764:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
+ 774:	10 92 1a 01 	sts	0x011A, r1	; 0x80011a <paddle2SM_state>
 	ballLogicSM_state = ball_init;
- 768:	10 92 12 01 	sts	0x0112, r1	; 0x800112 <ballLogicSM_state>
+ 778:	10 92 12 01 	sts	0x0112, r1	; 0x800112 <ballLogicSM_state>
 	LED1_LOW();
- 76c:	2b 98       	cbi	0x05, 3	; 5
+ 77c:	2b 98       	cbi	0x05, 3	; 5
 	LED2_LOW();
- 76e:	2c 98       	cbi	0x05, 4	; 5
+ 77e:	2c 98       	cbi	0x05, 4	; 5
 	paddle1POS=16;
- 770:	80 e1       	ldi	r24, 0x10	; 16
- 772:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
+ 780:	80 e1       	ldi	r24, 0x10	; 16
+ 782:	80 93 17 01 	sts	0x0117, r24	; 0x800117 <paddle1POS>
 	paddle2POS=16;
- 776:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
+ 786:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <paddle2POS>
 	xPOS = 3;
- 77a:	93 e0       	ldi	r25, 0x03	; 3
- 77c:	90 93 1b 01 	sts	0x011B, r25	; 0x80011b <xPOS>
+ 78a:	93 e0       	ldi	r25, 0x03	; 3
+ 78c:	90 93 1b 01 	sts	0x011B, r25	; 0x80011b <xPOS>
 	yPOS = 16;
- 780:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
+ 790:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <yPOS>
 	ballPOS_update();
- 784:	26 dd       	rcall	.-1460   	; 0x1d2 <ballPOS_update>
+ 794:	1e dd       	rcall	.-1476   	; 0x1d2 <ballPOS_update>
 		paddle2SM();
 		
 		for (int i=0; i<8; i++) {
 			
 			shiftOut( ~pattern[i]);
 			shiftOut( 128 >> i);
- 786:	68 94       	set
- 788:	ee 24       	eor	r14, r14
- 78a:	e7 f8       	bld	r14, 7
- 78c:	f1 2c       	mov	r15, r1
+ 796:	68 94       	set
+ 798:	ee 24       	eor	r14, r14
+ 79a:	e7 f8       	bld	r14, 7
+ 79c:	f1 2c       	mov	r15, r1
 			while(store_SM_elapsedTime>=1){
 				store_SM();
 				store_SM();
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
- 78e:	bb 24       	eor	r11, r11
+ 79e:	bb 24       	eor	r11, r11
 		}
 		
 		while (ballLogicSM_elapsedTime>=300){
- 790:	b3 94       	inc	r11
+ 7a0:	b3 94       	inc	r11
 	yPOS = 16;
 	ballPOS_update();
 	
 	
 	while (1){
 		softRest();
- 792:	c1 2c       	mov	r12, r1
- 794:	d1 2c       	mov	r13, r1
+ 7a2:	c1 2c       	mov	r12, r1
+ 7a4:	d1 2c       	mov	r13, r1
 		paddle1SM();
- 796:	3d dd       	rcall	.-1414   	; 0x212 <softRest>
- 798:	e6 de       	rcall	.-564    	; 0x566 <paddle1SM>
+ 7a6:	35 dd       	rcall	.-1430   	; 0x212 <softRest>
+ 7a8:	e6 de       	rcall	.-564    	; 0x576 <paddle1SM>
 		paddle2SM();
- 79a:	45 df       	rcall	.-374    	; 0x626 <paddle2SM>
- 79c:	00 e0       	ldi	r16, 0x00	; 0
- 79e:	11 e0       	ldi	r17, 0x01	; 1
+ 7aa:	45 df       	rcall	.-374    	; 0x636 <paddle2SM>
+ 7ac:	00 e0       	ldi	r16, 0x00	; 0
+ 7ae:	11 e0       	ldi	r17, 0x01	; 1
 		
 		for (int i=0; i<8; i++) {
- 7a0:	c0 e0       	ldi	r28, 0x00	; 0
- 7a2:	d0 e0       	ldi	r29, 0x00	; 0
+ 7b0:	c0 e0       	ldi	r28, 0x00	; 0
+ 7b2:	d0 e0       	ldi	r29, 0x00	; 0
 			
 			shiftOut( ~pattern[i]);
- 7a4:	f8 01       	movw	r30, r16
- 7a6:	81 91       	ld	r24, Z+
- 7a8:	8f 01       	movw	r16, r30
- 7aa:	80 95       	com	r24
- 7ac:	b9 df       	rcall	.-142    	; 0x720 <shiftOut>
+ 7b4:	f8 01       	movw	r30, r16
+ 7b6:	81 91       	ld	r24, Z+
+ 7b8:	8f 01       	movw	r16, r30
+ 7ba:	80 95       	com	r24
+ 7bc:	b9 df       	rcall	.-142    	; 0x730 <shiftOut>
 			shiftOut( 128 >> i);
- 7ae:	c7 01       	movw	r24, r14
- 7b0:	0c 2e       	mov	r0, r28
- 7b2:	02 c0       	rjmp	.+4      	; 0x7b8 <main+0x6a>
- 7b4:	95 95       	asr	r25
- 7b6:	87 95       	ror	r24
- 7b8:	0a 94       	dec	r0
- 7ba:	e2 f7       	brpl	.-8      	; 0x7b4 <main+0x66>
- 7bc:	b1 df       	rcall	.-158    	; 0x720 <shiftOut>
- 7be:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <store_SM_elapsedTime>
+ 7be:	c7 01       	movw	r24, r14
+ 7c0:	0c 2e       	mov	r0, r28
+ 7c2:	02 c0       	rjmp	.+4      	; 0x7c8 <main+0x6a>
+ 7c4:	95 95       	asr	r25
+ 7c6:	87 95       	ror	r24
+ 7c8:	0a 94       	dec	r0
+ 7ca:	e2 f7       	brpl	.-8      	; 0x7c4 <main+0x66>
+ 7cc:	b1 df       	rcall	.-158    	; 0x730 <shiftOut>
+ 7ce:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <store_SM_elapsedTime>
 			while(store_SM_elapsedTime>=1){
- 7c2:	81 11       	cpse	r24, r1
- 7c4:	1e c0       	rjmp	.+60     	; 0x802 <main+0xb4>
- 7c6:	b0 92 14 01 	sts	0x0114, r11	; 0x800114 <store_SM_elapsedTime>
+ 7d2:	81 11       	cpse	r24, r1
+ 7d4:	1e c0       	rjmp	.+60     	; 0x812 <main+0xb4>
+ 7d6:	b0 92 14 01 	sts	0x0114, r11	; 0x800114 <store_SM_elapsedTime>
 				store_SM();
 				store_SM();
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
- 7ca:	21 96       	adiw	r28, 0x01	; 1
+ 7da:	21 96       	adiw	r28, 0x01	; 1
 	while (1){
 		softRest();
 		paddle1SM();
 		paddle2SM();
 		
 		for (int i=0; i<8; i++) {
- 7cc:	c8 30       	cpi	r28, 0x08	; 8
- 7ce:	d1 05       	cpc	r29, r1
- 7d0:	49 f7       	brne	.-46     	; 0x7a4 <main+0x56>
- 7d2:	80 91 15 01 	lds	r24, 0x0115	; 0x800115 <ballLogicSM_elapsedTime>
+ 7dc:	c8 30       	cpi	r28, 0x08	; 8
+ 7de:	d1 05       	cpc	r29, r1
+ 7e0:	49 f7       	brne	.-46     	; 0x7b4 <main+0x56>
+ 7e2:	80 91 15 01 	lds	r24, 0x0115	; 0x800115 <ballLogicSM_elapsedTime>
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
 		}
 		
 		while (ballLogicSM_elapsedTime>=300){
- 7d6:	90 91 16 01 	lds	r25, 0x0116	; 0x800116 <ballLogicSM_elapsedTime+0x1>
- 7da:	8c 32       	cpi	r24, 0x2C	; 44
- 7dc:	21 e0       	ldi	r18, 0x01	; 1
- 7de:	92 07       	cpc	r25, r18
- 7e0:	60 f4       	brcc	.+24     	; 0x7fa <main+0xac>
- 7e2:	20 91 10 01 	lds	r18, 0x0110	; 0x800110 <TimerFlag>
+ 7e6:	90 91 16 01 	lds	r25, 0x0116	; 0x800116 <ballLogicSM_elapsedTime+0x1>
+ 7ea:	8c 32       	cpi	r24, 0x2C	; 44
+ 7ec:	21 e0       	ldi	r18, 0x01	; 1
+ 7ee:	92 07       	cpc	r25, r18
+ 7f0:	60 f4       	brcc	.+24     	; 0x80a <main+0xac>
+ 7f2:	20 91 10 01 	lds	r18, 0x0110	; 0x800110 <TimerFlag>
 			ballLogicSM();
 			
 			ballLogicSM_elapsedTime = 0;
 		}
 		
 		while(!TimerFlag);
- 7e6:	22 23       	and	r18, r18
- 7e8:	e1 f3       	breq	.-8      	; 0x7e2 <main+0x94>
+ 7f6:	22 23       	and	r18, r18
+ 7f8:	e1 f3       	breq	.-8      	; 0x7f2 <main+0x94>
 		TimerFlag = 0;
- 7ea:	10 92 10 01 	sts	0x0110, r1	; 0x800110 <TimerFlag>
+ 7fa:	10 92 10 01 	sts	0x0110, r1	; 0x800110 <TimerFlag>
 		ballLogicSM_elapsedTime += timerPeriod;
- 7ee:	01 96       	adiw	r24, 0x01	; 1
- 7f0:	90 93 16 01 	sts	0x0116, r25	; 0x800116 <ballLogicSM_elapsedTime+0x1>
+ 7fe:	01 96       	adiw	r24, 0x01	; 1
+ 800:	90 93 16 01 	sts	0x0116, r25	; 0x800116 <ballLogicSM_elapsedTime+0x1>
 	}
- 7f4:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <ballLogicSM_elapsedTime>
+ 804:	80 93 15 01 	sts	0x0115, r24	; 0x800115 <ballLogicSM_elapsedTime>
 			}
 			store_SM_elapsedTime += timerPeriod;
 		}
 		
 		while (ballLogicSM_elapsedTime>=300){
 			ballLogicSM();
- 7f8:	ce cf       	rjmp	.-100    	; 0x796 <main+0x48>
+ 808:	ce cf       	rjmp	.-100    	; 0x7a6 <main+0x48>
 				store_SM_elapsedTime=0;
 			}
 			store_SM_elapsedTime += timerPeriod;
 		}
 		
 		while (ballLogicSM_elapsedTime>=300){
- 7fa:	26 dd       	rcall	.-1460   	; 0x248 <ballLogicSM>
- 7fc:	8c 2d       	mov	r24, r12
- 7fe:	9d 2d       	mov	r25, r13
+ 80a:	1e dd       	rcall	.-1476   	; 0x248 <ballLogicSM>
+ 80c:	8c 2d       	mov	r24, r12
+ 80e:	9d 2d       	mov	r25, r13
 		for (int i=0; i<8; i++) {
 			
 			shiftOut( ~pattern[i]);
 			shiftOut( 128 >> i);
 			while(store_SM_elapsedTime>=1){
 				store_SM();
- 800:	f0 cf       	rjmp	.-32     	; 0x7e2 <main+0x94>
- 802:	71 df       	rcall	.-286    	; 0x6e6 <store_SM>
+ 810:	f0 cf       	rjmp	.-32     	; 0x7f2 <main+0x94>
+ 812:	71 df       	rcall	.-286    	; 0x6f6 <store_SM>
 				store_SM();
- 804:	70 df       	rcall	.-288    	; 0x6e6 <store_SM>
- 806:	df cf       	rjmp	.-66     	; 0x7c6 <main+0x78>
+ 814:	70 df       	rcall	.-288    	; 0x6f6 <store_SM>
+ 816:	df cf       	rjmp	.-66     	; 0x7d6 <main+0x78>
 
-00000808 <__tablejump2__>:
- 808:	ee 0f       	add	r30, r30
- 80a:	ff 1f       	adc	r31, r31
- 80c:	00 24       	eor	r0, r0
- 80e:	00 1c       	adc	r0, r0
- 810:	0b be       	out	0x3b, r0	; 59
- 812:	07 90       	elpm	r0, Z+
- 814:	f6 91       	elpm	r31, Z
- 816:	e0 2d       	mov	r30, r0
- 818:	09 94       	ijmp
+00000818 <__tablejump2__>:
+ 818:	ee 0f       	add	r30, r30
+ 81a:	ff 1f       	adc	r31, r31
+ 81c:	00 24       	eor	r0, r0
+ 81e:	00 1c       	adc	r0, r0
+ 820:	0b be       	out	0x3b, r0	; 59
+ 822:	07 90       	elpm	r0, Z+
+ 824:	f6 91       	elpm	r31, Z
+ 826:	e0 2d       	mov	r30, r0
+ 828:	09 94       	ijmp
 
-0000081a <_exit>:
- 81a:	f8 94       	cli
+0000082a <_exit>:
+ 82a:	f8 94       	cli
 
-0000081c <__stop_program>:
- 81c:	ff cf       	rjmp	.-2      	; 0x81c <__stop_program>
+0000082c <__stop_program>:
+ 82c:	ff cf       	rjmp	.-2      	; 0x82c <__stop_program>

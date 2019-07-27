@@ -224,7 +224,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x81e
+.text           0x00000000      0x82e
  *(.vectors)
  .vectors       0x00000000       0x8c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega1284/avr51/crtatmega1284.o
                 0x00000000                __vector_default
@@ -336,31 +336,31 @@ END GROUP
                 0x00000212       0x36 main.o
                 0x00000212                softRest
  .text.ballLogicSM
-                0x00000248      0x310 main.o
+                0x00000248      0x320 main.o
                 0x00000248                ballLogicSM
- .text.ioSetup  0x00000558        0xe main.o
-                0x00000558                ioSetup
+ .text.ioSetup  0x00000568        0xe main.o
+                0x00000568                ioSetup
  .text.paddle1SM
-                0x00000566       0xc0 main.o
-                0x00000566                paddle1SM
+                0x00000576       0xc0 main.o
+                0x00000576                paddle1SM
  .text.paddle2SM
-                0x00000626       0xc0 main.o
-                0x00000626                paddle2SM
+                0x00000636       0xc0 main.o
+                0x00000636                paddle2SM
  .text.store_SM
-                0x000006e6       0x3a main.o
-                0x000006e6                store_SM
+                0x000006f6       0x3a main.o
+                0x000006f6                store_SM
  .text.shiftOut
-                0x00000720       0x2e main.o
-                0x00000720                shiftOut
- .text.main     0x0000074e       0xba main.o
-                0x0000074e                main
- .text.libgcc   0x00000808       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
-                0x00000808                __tablejump2__
-                0x0000081a                . = ALIGN (0x2)
+                0x00000730       0x2e main.o
+                0x00000730                shiftOut
+ .text.main     0x0000075e       0xba main.o
+                0x0000075e                main
+ .text.libgcc   0x00000818       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
+                0x00000818                __tablejump2__
+                0x0000082a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000081a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x0000081a                _exit
-                0x0000081a                exit
+ .fini9         0x0000082a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x0000082a                _exit
+                0x0000082a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -379,11 +379,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000081a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x0000082a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000081e                _etext = .
+                0x0000082e                _etext = .
 
-.data           0x00800100        0xc load address 0x0000081e
+.data           0x00800100        0xc load address 0x0000082e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -423,8 +423,8 @@ END GROUP
                 0x0080011a                paddle2SM_state
                 0x0080011b                xPOS
                 0x0080011c                PROVIDE (__bss_end, .)
-                0x0000081e                __data_load_start = LOADADDR (.data)
-                0x0000082a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000082e                __data_load_start = LOADADDR (.data)
+                0x0000083a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080011c        0x0
                 [!provide]                PROVIDE (__noinit_start, .)

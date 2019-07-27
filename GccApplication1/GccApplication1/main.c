@@ -183,7 +183,7 @@ void ballLogicSM(){
 		}
 		break;
 		
-		case ball_upright: //not working
+		case ball_upright: //fixed
 		if (yPOS<128 && xPOS<6 )
 		{
 			ballLogicSM_state = ball_upright;
@@ -193,10 +193,10 @@ void ballLogicSM(){
 			if (xPOS!=6)
 			{
 				ballLogicSM_state = ball_downright;
-			}else if (paddle2POS==yPOS>>2) // top hit
+			}else if (paddle2POS==yPOS<<2) // top hit
 				{
-					ballLogicSM_state = ball_downleft;
-				}else if (paddle2POS==yPOS>>1) // middle hit
+					ballLogicSM_state = ball_upleft;
+				}else if (paddle2POS==yPOS<<1) // middle hit
 				{
 					ballLogicSM_state = ball_downleft;
 				}else if (paddle2POS==yPOS) // bottom hit
@@ -334,47 +334,7 @@ void ballLogicSM(){
 		LED2_HIGH();
 		break;
 	}
-	/*  not working switch
-	switch (ballLogicSM_state){
-		case ball_init:
-		ballLogicSM_state = ball_wait;
-		break;
-		case ball_wait:
-		ballLogicSM_state = ball_left;
-		break;
-		
-		case  ball_left:
-		
-		if (!(xPOS==1))
-		{
-			ballLogicSM_state = ball_left;
-		}else if (xPOS==1)
-		{
-			ballLogicSM_state = ball_right;
-		}
-		
-		break;
-		case ball_right:
-		break;
-	}
 	
-	switch (ballLogicSM_state){
-		case ball_init:
-		xPOS=3;yPOS=16;
-		ballPOS_update();
-		break;
-		case  ball_wait:
-		break;
-		
-		case  ball_left:
-		xPOS=2;yPOS=16;
-		ballPOS_update();
-		break;
-		case  ball_right:
-		break;
-		
-	}
-	*/
 	
 }
 
