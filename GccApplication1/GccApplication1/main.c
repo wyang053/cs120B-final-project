@@ -34,7 +34,7 @@
 #define  up2			((PINA & (1<<PINA2)))
 #define  down2			((PINA & (1<<PINA3)))
 #define  reset			((PINA & (1<<PINA4)))
-//#define	 _BV( bit )		( 1<<(bit) )
+ 
 void store_SM();
 enum store_states{store_init, store_high, store_low}store_state;
 enum paddle1SM_states{paddle1SM_wait, up1_press, up1_release, 
@@ -119,15 +119,7 @@ void softRest(){
 	
 	
 void ballPOS_update(){
-	/*
-	char i;
-	while (i>0 && i<7)
-	{
-	pattern[i]=0;	
-	i++;
-	}
-	*/
-	
+		
 	pattern [xPOS]=(yPOS)<<0;
 	if (ballLogicSM_state == ball_left || ballLogicSM_state == ball_upleft 
 	|| ballLogicSM_state == ball_downleft)
@@ -163,7 +155,7 @@ void ballLogicSM(){
 			}else if (paddle1POS == yPOS>>1)
 			{
 				ballLogicSM_state = ball_downright;
-			}else
+			}else if (xPOS<1)
 			{
 				ballLogicSM_state = player2win;
 			}
@@ -171,10 +163,12 @@ void ballLogicSM(){
 		}
 		break;
 		case ball_right:
-		if (xPOS!=6)
+		if (xPOS<6)
 		{
 			ballLogicSM_state = ball_right;
-			}else {
+		}else if (xPOS>6){
+			ballLogicSM_state = player1win;
+		}else {
 			if (paddle2POS == yPOS ) //test middle hit
 			{
 				ballLogicSM_state = ball_left;
@@ -189,10 +183,12 @@ void ballLogicSM(){
 		}
 		break;
 		
-		case ball_upright:
-		if (yPOS<128 && xPOS>1 )
+		case ball_upright: //not working
+		if (yPOS<128 && xPOS<6 )
 		{
 			ballLogicSM_state = ball_upright;
+		}else if (xPOS>6){
+			ballLogicSM_state = player1win;
 		} else {
 			if (xPOS!=6)
 			{
@@ -215,6 +211,8 @@ void ballLogicSM(){
 		if (yPOS>1 && xPOS<6)
 		{
 			ballLogicSM_state = ball_downright;
+			}else if (xPOS>6){
+				ballLogicSM_state = player1win;
 			} else {
 				if (xPOS!=6)
 				{
@@ -237,6 +235,9 @@ void ballLogicSM(){
 		{
 			ballLogicSM_state = ball_downleft;
 			
+		}else if (xPOS<1)
+		{
+			ballLogicSM_state = player2win;
 		}else 
 		{
 			if(xPOS!=1){
@@ -259,6 +260,9 @@ void ballLogicSM(){
 		if (yPOS<128 && xPOS>1)
 		{
 			ballLogicSM_state = ball_upleft;
+		}else if (xPOS<1)
+		{
+			ballLogicSM_state = player2win;
 		}else {
 			if (xPOS!=1)
 			{
@@ -272,7 +276,7 @@ void ballLogicSM(){
 				}else if (paddle1POS==yPOS) // top hit
 				{
 					ballLogicSM_state = ball_upright;
-				}
+				} 
 			
 		}
 		break;
@@ -375,7 +379,8 @@ void ballLogicSM(){
 }
 
 void ioSetup() {
-	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2) | (1<<DDB3) | (1<<DDB4); //PORTB as output
+	 DDRB |= (1<<DDB0) | (1<<DDB1) | (1<<DDB2) | (1<<DDB3) | (1<<DDB4); 
+	 //PORTB as output
 	
 	 DDRA |= (1<<DDA0) | (1<<DDA1) | (1<<DDA2) | (1<<DDA3) | (1<<DDA4); 
 	 //PORTA as input
