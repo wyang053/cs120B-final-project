@@ -43,8 +43,8 @@ enum paddle2SM_states{paddle2SM_wait, up2_press, up2_release,
 					  down2_press, down2_release}paddle2SM_state;					  	
 enum ballLogicSM_states{ball_init, ball_wait, ball_left, ball_right, 
 						ball_upleft, ball_downleft, ball_upright, 
-						ball_downright, player1win, player2win
-						}ballLogicSM_state;
+						ball_downright, player1RoundWIN, 
+						player2RoundWIN, ball_pause}ballLogicSM_state;
 void shiftOut(uint8_t val);
 volatile unsigned char TimerFlag=0;
 unsigned long _avr_timer_M=1;
@@ -55,7 +55,10 @@ unsigned char paddle1POS;
 unsigned char paddle2POS;
 unsigned char xPOS;
 unsigned char yPOS;// y position is in binary
-
+unsigned char player1score;
+unsigned char player2score;
+unsigned char roundEndDelay;
+unsigned char soft_reset;
 void TimerOn() {
 	TCCR1B = 0x0B;
 	OCR1A = 125;
@@ -100,13 +103,15 @@ void TimerSet(unsigned long M){
 			};
 
 void softRest(){
-	if (reset)
+	if (reset || soft_reset==1)
 	{
 		paddle1SM_state = paddle1SM_wait;
 		paddle2SM_state = paddle2SM_wait;
 		ballLogicSM_state = ball_init;
 		LED1_LOW();
 		LED2_LOW();
+		roundEndDelay=0;
+		soft_reset=0;
 		paddle1POS=16;
 		paddle2POS=16;
 		xPOS = 3;
@@ -132,7 +137,11 @@ void ballPOS_update(){
 	}
 	
 }	
- 
+
+void scoreinit(){
+	player1score=9;
+	player2score=9;
+} 
 void ballLogicSM(){
 	switch (ballLogicSM_state){
 		case ball_init:
@@ -157,7 +166,7 @@ void ballLogicSM(){
 				ballLogicSM_state = ball_downright;
 			}else if (xPOS<1)
 			{
-				ballLogicSM_state = player2win;
+				ballLogicSM_state = player2RoundWIN;
 			}
 			
 		}
@@ -167,7 +176,7 @@ void ballLogicSM(){
 		{
 			ballLogicSM_state = ball_right;
 		}else if (xPOS>6){
-			ballLogicSM_state = player1win;
+			ballLogicSM_state = player1RoundWIN;
 		}else {
 			if (paddle2POS == yPOS ) //test middle hit
 			{
@@ -188,7 +197,7 @@ void ballLogicSM(){
 		{
 			ballLogicSM_state = ball_upright;
 		}else if (xPOS>6){
-			ballLogicSM_state = player1win;
+			ballLogicSM_state = player1RoundWIN;
 		} else {
 			if (xPOS!=6)
 			{
@@ -212,7 +221,7 @@ void ballLogicSM(){
 		{
 			ballLogicSM_state = ball_downright;
 			}else if (xPOS>6){
-				ballLogicSM_state = player1win;
+				ballLogicSM_state = player1RoundWIN;
 			} else {
 				if (xPOS!=6)
 				{
@@ -237,7 +246,7 @@ void ballLogicSM(){
 			
 		}else if (xPOS<1)
 		{
-			ballLogicSM_state = player2win;
+			ballLogicSM_state = player2RoundWIN;
 		}else 
 		{
 			if(xPOS!=1){
@@ -262,7 +271,7 @@ void ballLogicSM(){
 			ballLogicSM_state = ball_upleft;
 		}else if (xPOS<1)
 		{
-			ballLogicSM_state = player2win;
+			ballLogicSM_state = player2RoundWIN;
 		}else {
 			if (xPOS!=1)
 			{
@@ -280,12 +289,47 @@ void ballLogicSM(){
 			
 		}
 		break;
-		case player1win:
-		ballLogicSM_state = player1win;
+		case player1RoundWIN:
+		roundEndDelay++;
+		player2score--;
+		if(roundEndDelay<3){
+			ballLogicSM_state = player1RoundWIN;
+		}else if (player2score==0)
+		{
+			LED1_HIGH();
+			scoreinit();
+			ballLogicSM_state = ball_pause;
+		}else if (roundEndDelay==4 || ! player2score==0)
+		{
+			
+			soft_reset=1;
+			roundEndDelay=0;
+		}
+		
 		break;
-		case player2win:
-		ballLogicSM_state = player2win;
+		case player2RoundWIN:
+		roundEndDelay++;
+		player1score--;
+		if(roundEndDelay<3){
+			ballLogicSM_state = player2RoundWIN;
+		}else if (player1score==0)
+		{
+			LED2_HIGH();
+			scoreinit();
+			ballLogicSM_state = ball_pause;
+			
+		}else if (roundEndDelay==4 || ! player1score==0)
+		{
+			
+			soft_reset=1;
+			roundEndDelay=0;
+		}
 		break;
+		
+		case ball_pause:
+		ballLogicSM_state = ball_pause;
+		break;
+		
 	}
 		
 	
@@ -294,6 +338,7 @@ void ballLogicSM(){
 		xPOS = 3;
 		yPOS = 16;
 		ballPOS_update();
+		
 		break;
 		case  ball_wait:
 		break;
@@ -327,11 +372,11 @@ void ballLogicSM(){
 		yPOS =yPOS*2;
 		ballPOS_update();
 		break;
-		case player1win:
-		LED1_HIGH();
+		case player1RoundWIN:
 		break;
-		case player2win:
-		LED2_HIGH();
+		case player2RoundWIN:
+		break;
+		case  ball_pause:
 		break;
 	}
 	
@@ -389,6 +434,7 @@ void paddle1SM(){
 		case  down1_release:
 		paddle1SM_state = paddle1SM_wait;
 		break;
+
 		
 		
 	}
@@ -512,6 +558,8 @@ int main() {
 	LED2_LOW();
 	paddle1POS=16;
 	paddle2POS=16;
+	player1score=9;
+	player2score=9;
 	xPOS = 3;
 	yPOS = 16;
 	ballPOS_update();
