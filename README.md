@@ -8,4 +8,4 @@ Controls: The system has 5 buttons for user inputs, which are player1 up, player
 Technologies and components used:
 The main components used in the project are two 8-bit shift registers, one Atmega1284, five buttons, two LEDs, and one 8x8 LED matrix. The code is implemented in C using Atmel Studio 7. The 16 pins of the LED matrix are driven by two shift registers. The two shift registers are connected in chianing mode, so it only needs three pins to be controlled by the Atmega1284.
 
-![Breadboard]https://github.com/wyang053/cs120B-final-project/blob/master/pong_breadboard.jpg
+![Breadboard](https://github.com/wyang053/cs120B-final-project/blob/master/pong_breadboard.jpg)
